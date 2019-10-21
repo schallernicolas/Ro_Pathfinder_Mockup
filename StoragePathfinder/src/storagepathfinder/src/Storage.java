@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package storagepathfinder;
+package storagepathfinder.src;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,13 +103,13 @@ public class Storage {
         //for square 012
         squareObstacle.put("004", 3);
         squareObstacle.put("006", 2);
-        squareName = "011";
+        squareName = "012";
         obstacles.put(squareName, squareObstacle);
         squareObstacle.clear();
         
         //for square 005
-        squareObstacle.put("004", 4);
-        squareObstacle.put("006", 2);
+        //squareObstacle.put("004", 4);
+        //squareObstacle.put("006", 2);
         
         
     }
