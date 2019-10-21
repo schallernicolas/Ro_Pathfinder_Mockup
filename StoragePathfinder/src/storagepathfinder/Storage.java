@@ -7,6 +7,8 @@ package storagepathfinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  *
@@ -20,6 +22,33 @@ public class Storage {
     
     public Storage(){
         generateStorage();
+        // manually add neighbors to test algorithm
+        StorageSquare square04 = storageSquares.get(11);
+        StorageSquare square05 = storageSquares.get(14);
+        StorageSquare square12 = storageSquares.get(13);
+        StorageSquare square11 = storageSquares.get(10);
+        square04.removeNeighbor(square11);
+        square04.removeNeighbor(square05);
+        square04.removeNeighbor(square12);
+        square05.removeNeighbor(square04);
+        square12.removeNeighbor(square04);
+        square11.removeNeighbor(square04);
+        /*square04.addNeighbor(square05, 3);
+        square04.addNeighbor(square12, 3);
+        square04.addNeighbor(square11, 2);
+        square05.addNeighbor(square04, 3);
+        square12.addNeighbor(square04, 3);
+        square11.addNeighbor(square04, 2);*/
+        storageSquares.set(11, square04);
+        storageSquares.set(14, square05);
+        storageSquares.set(13, square12);
+        storageSquares.set(10, square11);
+        System.out.println();
+        storageSquares.forEach((n) -> n.printSquareInformation());
+    }
+    
+    public List<StorageSquare> getStorageSquares(){
+        return storageSquares;
     }
     
     private void generateStorage(){
@@ -27,7 +56,7 @@ public class Storage {
         generateObstacles();
         
         storageSquares.forEach((n) -> populateNeigbors(n));
-        storageSquares.forEach((n) -> n.printSquareInformation());
+        //storageSquares.forEach((n) -> n.printSquareInformation());
     }
     
     //test set of storage squares
@@ -75,21 +104,21 @@ public class Storage {
         HashMap squareObstacle = new HashMap<String, Integer>();
        
         // for square 015
-        squareObstacle.put("006", 2);
+        squareObstacle.put("008", 2);
         squareName = "015";
         obstacles.put(squareName, squareObstacle);
         squareObstacle.clear();
         
-        // for square 006
+        // for square 008
         squareObstacle.put("015", 2);
-        squareName = "006";
+        squareName = "008";
         obstacles.put(squareName, squareObstacle);
         squareObstacle.clear();
         
         //for square 004
         squareObstacle.put("011", 2);
         squareObstacle.put("012", 3);
-        squareObstacle.put("005", 4);
+        squareObstacle.put("005", 3);
         squareName = "004";
         obstacles.put(squareName, squareObstacle);
         squareObstacle.clear();
@@ -102,15 +131,16 @@ public class Storage {
         
         //for square 012
         squareObstacle.put("004", 3);
-        squareObstacle.put("006", 2);
-        squareName = "011";
+        squareName = "012";
         obstacles.put(squareName, squareObstacle);
         squareObstacle.clear();
         
         //for square 005
-        squareObstacle.put("004", 4);
+        squareObstacle.put("004", 3);
         squareObstacle.put("006", 2);
-        
+        squareName = "005";
+        obstacles.put(squareName, squareObstacle);
+        squareObstacle.clear();
         
     }
     
@@ -122,13 +152,14 @@ public class Storage {
                 .filter(s -> s.getColNr() == square.getColNr()-1 || s.getColNr() == square.getColNr() || s.getColNr() == square.getColNr()+1)
                 .filter(s -> s.getRowNr() == square.getRowNr()-1 || s.getRowNr() == square.getRowNr() || s.getRowNr() == square.getRowNr()+1)
                 .filter(s -> !s.equals(square))
-                .forEach(s -> square.addNeighbor(s, getPriceOfNeighbor(square, s)));
+                .forEach(s -> square.addNeighbor(s, 1/*getPriceOfNeighbor(square, s)*/));
     }
     
     private int getPriceOfNeighbor(StorageSquare square, StorageSquare neighbor){
         HashMap<String, Integer> obstaclesForSquare;
         obstaclesForSquare = obstacles.get(square.getName());
         if(obstaclesForSquare == null){
+            System.out.println(square.getName());
             return 1;
         }
         Integer price = obstaclesForSquare.get(neighbor.getName());

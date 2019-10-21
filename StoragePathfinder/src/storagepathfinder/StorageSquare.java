@@ -20,6 +20,8 @@ public class StorageSquare {
     private int colNr;
     private int rowNr;
     private HashMap<StorageSquare, Integer> neighbors;
+    //used for calculation in a* algorithm
+    private double distanceToStart = 0;
     
     public StorageSquare(String name, int floorNr, int colNr, int rowNr){
         this.name = name; 
@@ -51,6 +53,18 @@ public class StorageSquare {
     
     public void addNeighbor(StorageSquare neighbor, int price){
         neighbors.put(neighbor, price);
+    }
+    
+    public void removeNeighbor(StorageSquare neighbor){
+        neighbors.remove(neighbor);
+    }
+    
+    public double getDistanceToStart(){
+        return distanceToStart;
+    }
+    
+    public void setDistanceToStart(double distanceToStart){
+        this.distanceToStart = distanceToStart;
     }
     
     public void test(){
