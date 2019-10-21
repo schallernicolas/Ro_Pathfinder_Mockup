@@ -6,21 +6,27 @@
 package storagepathfinder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
  * @author nsc
  */
 public class Storage {
-    private ArrayList<StorageSquare> storageSquares;
+    private ArrayList<StorageSquare> storageSquares = new ArrayList<StorageSquare>();
+    //Todo: DataStructure for obstacles
+    //private ArrayList<HashMap<String, String>> obstacles;
+    
     
     public Storage(){
         generateStorage();
     }
     
     private void generateStorage(){
-        generateStorageSquares();
-        populateNeighbors();
+        generateStorageSquares(); 
+        
+        storageSquares.forEach((n) -> populateNeigbors(n));
+        storageSquares.forEach((n) -> n.printSquareInformation());
     }
     
     //test set of storage squares
@@ -62,13 +68,14 @@ public class Storage {
         storageSquares.add(new StorageSquare("063", 0, 10, 3));
     }
     
-    private void populateNeighbors(){
-        storageSquares.forEach((n) -> findAndValueNeigbors(n));
+    private void populateNeigbors(StorageSquare square){
+        //here, we check if neighbors are available. We only consinder neighbors in rows and columns, not floors
+        storageSquares
+                .stream()
+                .filter(s -> s.getFloorNr() == square.getFloorNr())
+                .filter(s -> s.getColNr() == square.getColNr()-1 || s.getColNr() == square.getColNr() || s.getColNr() == square.getColNr()+1)
+                .filter(s -> s.getRowNr() == square.getRowNr()-1 || s.getRowNr() == square.getRowNr() || s.getRowNr() == square.getRowNr()+1)
+                .filter(s -> !s.equals(square))
+                .forEach(s -> square.addNeighbor(s, 1));
     }
-    
-    private void findAndValueNeigbors(StorageSquare square){
-        
-    }
-    
-    
 }

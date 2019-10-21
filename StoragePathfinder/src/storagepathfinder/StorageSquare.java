@@ -53,10 +53,6 @@ public class StorageSquare {
         neighbors.put(neighbor, price);
     }
     
-    
-    
-    
-
     public void test(){
         List<String> myList = Arrays.asList("a1", "a2", "b1", "c2", "c1");
         myList.stream()
@@ -65,4 +61,11 @@ public class StorageSquare {
                 .sorted()
                 .forEach(System.out::println);
     }
+    
+    public void printSquareInformation(){
+        System.out.println("Square " + name);
+        neighbors.forEach((key, value) -> {
+            System.out.println("     Neigbor " + key + ", Price: " + value);
+        });
+    }      
 }

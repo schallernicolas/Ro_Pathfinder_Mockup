@@ -17,7 +17,5 @@ public class StoragePathfinder {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         Storage storage = new Storage();
-    }
-    
-    
+    }   
 }
