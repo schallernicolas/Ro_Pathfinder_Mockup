@@ -65,7 +65,7 @@ public class StorageSquare {
     public void printSquareInformation(){
         System.out.println("Square " + name);
         neighbors.forEach((key, value) -> {
-            System.out.println("     Neigbor " + key + ", Price: " + value);
+            System.out.println("     Neigbor " + key.name + ", Price: " + value);
         });
     }      
 }
