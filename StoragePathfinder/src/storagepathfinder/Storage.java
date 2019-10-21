@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package storagepathfinder.src;
+package storagepathfinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -15,8 +17,8 @@ import java.util.HashMap;
 public class Storage {
     private ArrayList<StorageSquare> storageSquares = new ArrayList<>();
     //Todo: DataStructure for obstacles
-    private HashMap<String, HashMap<String, Integer>> obstacles = new HashMap<>();
-    
+    //private HashMap<String, HashMap<String, Integer>> obstacles = new HashMap<>();
+    private ArrayList<Obstacle> obstacles = new ArrayList<>();
     
     public Storage(){
         generateStorage();
@@ -68,53 +70,22 @@ public class Storage {
         storageSquares.add(new StorageSquare("062", 0, 10, 2));
         storageSquares.add(new StorageSquare("063", 0, 10, 3));
     }
+
+    
+    
+    
     
     private void generateObstacles(){
-        //initialize work variables
-        String squareName = "";
-        HashMap squareObstacle = new HashMap<String, Integer>();
-       
-        // for square 015
-        squareObstacle.put("006", 2);
-        squareName = "015";
-        obstacles.put(squareName, squareObstacle);
-        squareObstacle.clear();
-        
-        // for square 006
-        squareObstacle.put("015", 2);
-        squareName = "006";
-        obstacles.put(squareName, squareObstacle);
-        squareObstacle.clear();
-        
-        //for square 004
-        squareObstacle.put("011", 2);
-        squareObstacle.put("012", 3);
-        squareObstacle.put("005", 4);
-        squareName = "004";
-        obstacles.put(squareName, squareObstacle);
-        squareObstacle.clear();
-        
-        //for square 011
-        squareObstacle.put("004", 2);
-        squareName = "011";
-        obstacles.put(squareName, squareObstacle);
-        squareObstacle.clear();
-        
-        //for square 012
-        squareObstacle.put("004", 3);
-        squareObstacle.put("006", 2);
-        squareName = "012";
-        obstacles.put(squareName, squareObstacle);
-        squareObstacle.clear();
-        
-        //for square 005
-        //squareObstacle.put("004", 4);
-        //squareObstacle.put("006", 2);
-        
+        //here, we add all our obstacles
+        obstacles.add(new Obstacle("006", "015", 2));
+        obstacles.add(new Obstacle("004", "011", 2));
+        obstacles.add(new Obstacle("004", "012", 3));
+        obstacles.add(new Obstacle("004", "014", 4));
+        obstacles.add(new Obstacle("006", "012", 2));
         
     }
     
-    private void populateNeigbors(StorageSquare square){
+    protected void populateNeigbors(StorageSquare square){
         //here, we check if neighbors are available. We only consinder neighbors in rows and columns, not floors
         storageSquares
                 .stream()
@@ -126,16 +97,27 @@ public class Storage {
     }
     
     private int getPriceOfNeighbor(StorageSquare square, StorageSquare neighbor){
-        HashMap<String, Integer> obstaclesForSquare;
-        obstaclesForSquare = obstacles.get(square.getName());
-        if(obstaclesForSquare == null){
-            return 1;
-        }
-        Integer price = obstaclesForSquare.get(neighbor.getName());
-        if (price == null){
+        
+        Optional<Obstacle> obstacle = obstacles
+                                .stream()
+                                .filter(o -> o.squaresHaveObstacle(square.getName(), neighbor.getName()))
+                                .findFirst();
+        if(!obstacle.isPresent()){
             return 1;
         } else {
-            return price;
+            return obstacle.get().getPrice();
         }
+    }
+    
+    protected void setStorageSquares(ArrayList<StorageSquare> storageSquares) {
+        this.storageSquares = storageSquares;
+    }
+
+    protected void setObstacles(HashMap<String, HashMap<String, Integer>> obstacles) {
+        //this.obstacles = obstacles;
+    }
+
+    protected ArrayList<StorageSquare> getStorageSquares() {
+        return storageSquares;
     }
 }

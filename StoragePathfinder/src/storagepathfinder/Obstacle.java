@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package storagepathfinder.src;
+package storagepathfinder;
 
 /**
  *
  * @author nsc
  */
 public class Obstacle {
-    private StorageSquare first;
-    private StorageSquare second;
+    private String first;
+    private String second;
     private int price;
     
-    private Obstacle(StorageSquare first, StorageSquare second, int price){
+    public Obstacle(String first, String second, int price){
         this.first = first;
         this.second = second;
         this.price = price;
@@ -24,9 +24,12 @@ public class Obstacle {
         return price;
     }
     
-    public boolean squaresHaveObstacle(StorageSquare first, StorageSquare second){
+    protected boolean squaresHaveObstacle(String first, String second){
         return (first.equals(this.first) && second.equals(this.second)) || 
                 (first.equals(this.second) && second.equals(this.first));
+    }
+    protected boolean squareAffected(String squareName){
+        return squareName.equals(first) || squareName.equals(first);
     }
     
     
