@@ -13,9 +13,9 @@ import java.util.HashMap;
  * @author nsc
  */
 public class Storage {
-    private ArrayList<StorageSquare> storageSquares = new ArrayList<StorageSquare>();
+    private ArrayList<StorageSquare> storageSquares = new ArrayList<>();
     //Todo: DataStructure for obstacles
-    //private ArrayList<HashMap<String, String>> obstacles;
+    private HashMap<String, HashMap<String, Integer>> obstacles = new HashMap<>();
     
     
     public Storage(){
@@ -23,7 +23,8 @@ public class Storage {
     }
     
     private void generateStorage(){
-        generateStorageSquares(); 
+        generateStorageSquares();
+        generateObstacles();
         
         storageSquares.forEach((n) -> populateNeigbors(n));
         storageSquares.forEach((n) -> n.printSquareInformation());
@@ -68,6 +69,51 @@ public class Storage {
         storageSquares.add(new StorageSquare("063", 0, 10, 3));
     }
     
+    private void generateObstacles(){
+        //initialize work variables
+        String squareName = "";
+        HashMap squareObstacle = new HashMap<String, Integer>();
+       
+        // for square 015
+        squareObstacle.put("006", 2);
+        squareName = "015";
+        obstacles.put(squareName, squareObstacle);
+        squareObstacle.clear();
+        
+        // for square 006
+        squareObstacle.put("015", 2);
+        squareName = "006";
+        obstacles.put(squareName, squareObstacle);
+        squareObstacle.clear();
+        
+        //for square 004
+        squareObstacle.put("011", 2);
+        squareObstacle.put("012", 3);
+        squareObstacle.put("005", 4);
+        squareName = "004";
+        obstacles.put(squareName, squareObstacle);
+        squareObstacle.clear();
+        
+        //for square 011
+        squareObstacle.put("004", 2);
+        squareName = "011";
+        obstacles.put(squareName, squareObstacle);
+        squareObstacle.clear();
+        
+        //for square 012
+        squareObstacle.put("004", 3);
+        squareObstacle.put("006", 2);
+        squareName = "011";
+        obstacles.put(squareName, squareObstacle);
+        squareObstacle.clear();
+        
+        //for square 005
+        squareObstacle.put("004", 4);
+        squareObstacle.put("006", 2);
+        
+        
+    }
+    
     private void populateNeigbors(StorageSquare square){
         //here, we check if neighbors are available. We only consinder neighbors in rows and columns, not floors
         storageSquares
@@ -76,6 +122,20 @@ public class Storage {
                 .filter(s -> s.getColNr() == square.getColNr()-1 || s.getColNr() == square.getColNr() || s.getColNr() == square.getColNr()+1)
                 .filter(s -> s.getRowNr() == square.getRowNr()-1 || s.getRowNr() == square.getRowNr() || s.getRowNr() == square.getRowNr()+1)
                 .filter(s -> !s.equals(square))
-                .forEach(s -> square.addNeighbor(s, 1));
+                .forEach(s -> square.addNeighbor(s, getPriceOfNeighbor(square, s)));
+    }
+    
+    private int getPriceOfNeighbor(StorageSquare square, StorageSquare neighbor){
+        HashMap<String, Integer> obstaclesForSquare;
+        obstaclesForSquare = obstacles.get(square.getName());
+        if(obstaclesForSquare == null){
+            return 1;
+        }
+        Integer price = obstaclesForSquare.get(neighbor.getName());
+        if (price == null){
+            return 1;
+        } else {
+            return price;
+        }
     }
 }
