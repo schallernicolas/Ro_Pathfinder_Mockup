@@ -10,9 +10,9 @@ package storagepathfinder;
  * @author nsc
  */
 public class Obstacle {
-    private String first;
-    private String second;
-    private int price;
+    private final String first;
+    private final String second;
+    private final int price;
     
     public Obstacle(String first, String second, int price){
         this.first = first;
@@ -31,7 +31,4 @@ public class Obstacle {
     protected boolean squareAffected(String squareName){
         return squareName.equals(first) || squareName.equals(first);
     }
-    
-    
-    
 }

@@ -15,10 +15,10 @@ import java.util.List;
  * @author nsc
  */
 public class StorageSquare {
-    private String name;
-    private int floorNr;
-    private int colNr;
-    private int rowNr;
+    private final String name;
+    private final int floorNr;
+    private final int colNr;
+    private final int rowNr;
     private HashMap<String, Integer> neighbors;
     
     public StorageSquare(String name, int floorNr, int colNr, int rowNr){

@@ -6,7 +6,6 @@
 package storagepathfinder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Optional;
 
 /**
@@ -15,8 +14,6 @@ import java.util.Optional;
  */
 public class Storage {
     private ArrayList<StorageSquare> storageSquares = new ArrayList<>();
-    //Todo: DataStructure for obstacles
-    //private HashMap<String, HashMap<String, Integer>> obstacles = new HashMap<>();
     private ArrayList<Obstacle> obstacles = new ArrayList<>();
     
     public Storage(){
@@ -25,7 +22,6 @@ public class Storage {
     protected void generateStorage(){
         generateStorageSquares();
         generateObstacles();
-        
         storageSquares.forEach((n) -> populateNeigbors(n));
         storageSquares.forEach((n) -> n.printSquareInformation());
     }
@@ -68,10 +64,6 @@ public class Storage {
         storageSquares.add(new StorageSquare("062", 0, 10, 2));
         storageSquares.add(new StorageSquare("063", 0, 10, 3));
     }
-
-    
-    
-    
     
     private void generateObstacles(){
         //here, we add all our obstacles
