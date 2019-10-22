@@ -7,13 +7,9 @@ package storagepathfinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.Optional;
-
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -96,15 +92,5 @@ public class StorageTest {
         assertEquals((int)2, (int)neighbors.get("07"));
         assertEquals((int)1, (int)neighbors.get("08"));
         assertEquals((int)1, (int)neighbors.get("09"));
-        
-        
-        //check id 
-        
-        
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

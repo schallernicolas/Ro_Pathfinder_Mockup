@@ -5,7 +5,6 @@
  */
 package storagepathfinder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +61,7 @@ public class StorageSquare {
                 .forEach(System.out::println);
     }
     
+    //only for debug purposes!
     public void printSquareInformation(){
         System.out.println("Square " + name);
         neighbors.forEach((key, value) -> {
