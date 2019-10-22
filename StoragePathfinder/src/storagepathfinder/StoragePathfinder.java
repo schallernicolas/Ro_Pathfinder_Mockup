@@ -16,5 +16,6 @@ public class StoragePathfinder {
      */
     public static void main(String[] args) {
         Storage storage = new Storage();
+        storage.generateStorage();
     }   
 }

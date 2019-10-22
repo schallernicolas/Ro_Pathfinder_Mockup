@@ -20,10 +20,9 @@ public class Storage {
     private ArrayList<Obstacle> obstacles = new ArrayList<>();
     
     public Storage(){
-        generateStorage();
     }
     
-    private void generateStorage(){
+    protected void generateStorage(){
         generateStorageSquares();
         generateObstacles();
         
@@ -76,11 +75,18 @@ public class Storage {
     
     private void generateObstacles(){
         //here, we add all our obstacles
-        obstacles.add(new Obstacle("006", "015", 2));
+        obstacles.add(new Obstacle("008", "015", 2));
         obstacles.add(new Obstacle("004", "011", 2));
         obstacles.add(new Obstacle("004", "012", 3));
-        obstacles.add(new Obstacle("004", "014", 4));
+        obstacles.add(new Obstacle("004", "005", 4));
         obstacles.add(new Obstacle("006", "012", 2));
+        obstacles.add(new Obstacle("020", "013", 2));
+        obstacles.add(new Obstacle("014", "007", 2));
+        obstacles.add(new Obstacle("014", "031", 2));
+        obstacles.add(new Obstacle("050", "060", 2));
+        obstacles.add(new Obstacle("061", "062", 2));
+        obstacles.add(new Obstacle("062", "063", 2));
+        
         
     }
     
