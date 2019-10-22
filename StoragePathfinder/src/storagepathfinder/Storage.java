@@ -8,7 +8,6 @@ package storagepathfinder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -99,9 +98,9 @@ public class Storage {
     private int getPriceOfNeighbor(StorageSquare square, StorageSquare neighbor){
         
         Optional<Obstacle> obstacle = obstacles
-                                .stream()
-                                .filter(o -> o.squaresHaveObstacle(square.getName(), neighbor.getName()))
-                                .findFirst();
+                                        .stream()
+                                        .filter(o -> o.squaresHaveObstacle(square.getName(), neighbor.getName()))
+                                        .findFirst();
         if(!obstacle.isPresent()){
             return 1;
         } else {
@@ -113,8 +112,8 @@ public class Storage {
         this.storageSquares = storageSquares;
     }
 
-    protected void setObstacles(HashMap<String, HashMap<String, Integer>> obstacles) {
-        //this.obstacles = obstacles;
+    protected void setObstacles(ArrayList<Obstacle> obstacles) {
+        this.obstacles = obstacles;
     }
 
     protected ArrayList<StorageSquare> getStorageSquares() {

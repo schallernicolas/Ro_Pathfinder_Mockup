@@ -7,7 +7,9 @@ package storagepathfinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import junit.framework.Assert;
+
+import java.util.Optional;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,7 +24,7 @@ import static org.junit.Assert.*;
 public class StorageTest {
     private Storage testStorage;
     private ArrayList<StorageSquare> storageSquares;
-    private HashMap<String, HashMap<String, Integer>> obstacles;
+    private ArrayList<Obstacle> obstacles;
     
     public StorageTest() {
         
@@ -42,17 +44,16 @@ public class StorageTest {
         storageSquares.add(new StorageSquare("08", 0, 2, 1));
         storageSquares.add(new StorageSquare("09", 0, 2, 2));
         
-        obstacles = new HashMap<>();
+        obstacles = new ArrayList<>();
         
         //initialize work variables
-        String squareName = "";
-        HashMap squareObstacle = new HashMap<String, Integer>();
-       
-        // for square 01
-        squareObstacle.put("02", 2);
-        squareObstacle.put("04", 2);
-        squareName = "01";
-        obstacles.put(squareName, squareObstacle);
+        
+        obstacles.add(new Obstacle("01", "02", 2));
+        obstacles.add(new Obstacle("01", "04", 3));
+        obstacles.add(new Obstacle("05", "01", 4));
+        obstacles.add(new Obstacle("05", "06", 3));
+        obstacles.add(new Obstacle("07", "05", 2));
+        
         
         testStorage.setStorageSquares(storageSquares);
         testStorage.setObstacles(obstacles);
@@ -66,8 +67,40 @@ public class StorageTest {
     @Test
     public void testIfNeighborsAreCorrectlyPopulated(){
         testStorage.getStorageSquares().forEach((n) -> testStorage.populateNeigbors(n));
+        ArrayList<StorageSquare> squares = testStorage.getStorageSquares();
+        //first, check if neighbors of square 1 have the correct cost value and the correct neighbors
+        Optional<StorageSquare> square01 = squares
+                                            .stream()
+                                            .filter(s -> s.getName().equals("01"))
+                                            .findFirst();
+        assertEquals(true, square01.isPresent());
+        HashMap<String, Integer> neighbors = square01.get().getNeighbors();
+        assertEquals(3, neighbors.size());
+        assertEquals((int)2, (int)neighbors.get("02"));
+        assertEquals((int)3, (int)neighbors.get("04"));
+        assertEquals((int)4, (int)neighbors.get("05"));
         
-        assertEquals(null, expected, actual);
+        //Now, go for square 5 and do the same checks. Check also for correct standard value (1)
+        Optional<StorageSquare> square05 = squares
+                                            .stream()
+                                            .filter(s -> s.getName().equals("05"))
+                                            .findFirst();
+        assertEquals(true, square05.isPresent());
+        neighbors = square05.get().getNeighbors();
+        assertEquals(8, neighbors.size());
+        assertEquals((int)4, (int)neighbors.get("01"));
+        assertEquals((int)1, (int)neighbors.get("02"));
+        assertEquals((int)1, (int)neighbors.get("03"));
+        assertEquals((int)1, (int)neighbors.get("04"));
+        assertEquals((int)3, (int)neighbors.get("06"));
+        assertEquals((int)2, (int)neighbors.get("07"));
+        assertEquals((int)1, (int)neighbors.get("08"));
+        assertEquals((int)1, (int)neighbors.get("09"));
+        
+        
+        //check id 
+        
+        
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

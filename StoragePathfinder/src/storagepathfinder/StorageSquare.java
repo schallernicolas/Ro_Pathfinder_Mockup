@@ -19,14 +19,14 @@ public class StorageSquare {
     private int floorNr;
     private int colNr;
     private int rowNr;
-    private HashMap<StorageSquare, Integer> neighbors;
+    private HashMap<String, Integer> neighbors;
     
     public StorageSquare(String name, int floorNr, int colNr, int rowNr){
         this.name = name; 
         this.floorNr = floorNr;
         this.colNr = colNr;
         this.rowNr = rowNr;
-        neighbors = new HashMap<StorageSquare, Integer>();
+        neighbors = new HashMap<>();
     }
 
     public String getName() {
@@ -45,12 +45,12 @@ public class StorageSquare {
         return rowNr;
     }
 
-    public HashMap<StorageSquare, Integer> getNeighbors() {
+    public HashMap<String, Integer> getNeighbors() {
         return neighbors;
     }
     
     public void addNeighbor(StorageSquare neighbor, int price){
-        neighbors.put(neighbor, price);
+        neighbors.put(neighbor.name, price);
     }
     
     public void test(){
@@ -65,7 +65,7 @@ public class StorageSquare {
     public void printSquareInformation(){
         System.out.println("Square " + name);
         neighbors.forEach((key, value) -> {
-            System.out.println("     Neigbor " + key.name + ", Price: " + value);
+            System.out.println("     Neigbor " + key + ", Price: " + value);
         });
     }      
 }
