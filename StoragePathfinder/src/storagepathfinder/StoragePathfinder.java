@@ -29,7 +29,9 @@ public class StoragePathfinder {
         Storage storage = new Storage();
         storage.generateStorage();
         List<StorageSquare> squares = storage.getStorageSquares();
+        // from square "004"
         StorageSquare start = squares.get(11);
+        // to square "012"
         StorageSquare end = squares.get(13);
         List<StorageSquare> shortestPathBetweenTwoNodes = spf.findShortestPathBetweenTwoNodes(start, end, squares);
         spf.printShortestPath(shortestPathBetweenTwoNodes);
