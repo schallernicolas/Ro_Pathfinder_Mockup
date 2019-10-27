@@ -135,5 +135,8 @@ public class StoragePathfinder {
         System.out.println();
     }
 =======
+        Storage storage = new Storage();
+        storage.generateStorage();
+    }   
 >>>>>>> master
 }
