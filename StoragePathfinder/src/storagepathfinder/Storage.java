@@ -21,37 +21,13 @@ public class Storage {
     
     
     public Storage(){
-        generateStorage();
-        // manually add neighbors to test algorithm
-        StorageSquare square04 = storageSquares.get(11);
-        StorageSquare square05 = storageSquares.get(14);
-        StorageSquare square12 = storageSquares.get(13);
-        StorageSquare square11 = storageSquares.get(10);
-        square04.removeNeighbor(square11);
-        square04.removeNeighbor(square05);
-        square04.removeNeighbor(square12);
-        square05.removeNeighbor(square04);
-        square12.removeNeighbor(square04);
-        square11.removeNeighbor(square04);
-        /*square04.addNeighbor(square05, 3);
-        square04.addNeighbor(square12, 3);
-        square04.addNeighbor(square11, 2);
-        square05.addNeighbor(square04, 3);
-        square12.addNeighbor(square04, 3);
-        square11.addNeighbor(square04, 2);*/
-        storageSquares.set(11, square04);
-        storageSquares.set(14, square05);
-        storageSquares.set(13, square12);
-        storageSquares.set(10, square11);
-        System.out.println();
-        storageSquares.forEach((n) -> n.printSquareInformation());
     }
     
     public List<StorageSquare> getStorageSquares(){
         return storageSquares;
     }
     
-    private void generateStorage(){
+    protected void generateStorage(){
         generateStorageSquares();
         generateObstacles();
         

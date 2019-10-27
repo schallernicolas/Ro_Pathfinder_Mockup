@@ -25,10 +25,9 @@ public class StoragePathfinder {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-<<<<<<< HEAD
         StoragePathfinder spf = new StoragePathfinder();
-        System.out.println("Hello World!");
         Storage storage = new Storage();
+        storage.generateStorage();
         List<StorageSquare> squares = storage.getStorageSquares();
         StorageSquare start = squares.get(11);
         StorageSquare end = squares.get(13);
@@ -134,9 +133,4 @@ public class StoragePathfinder {
         }
         System.out.println();
     }
-=======
-        Storage storage = new Storage();
-        storage.generateStorage();
-    }   
->>>>>>> master
 }
