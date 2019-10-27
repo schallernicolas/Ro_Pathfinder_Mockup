@@ -24,6 +24,7 @@ public class Storage {
         generateObstacles();
         storageSquares.forEach((n) -> populateNeigbors(n));
         storageSquares.forEach((n) -> n.printSquareInformation());
+        
     }
     
     //test set of storage squares
@@ -67,19 +68,18 @@ public class Storage {
     
     private void generateObstacles(){
         //here, we add all our obstacles
-        obstacles.add(new Obstacle("008", "015", 2));
-        obstacles.add(new Obstacle("004", "011", 2));
-        obstacles.add(new Obstacle("004", "012", 3));
-        obstacles.add(new Obstacle("004", "005", 4));
-        obstacles.add(new Obstacle("006", "012", 2));
-        obstacles.add(new Obstacle("020", "013", 2));
-        obstacles.add(new Obstacle("014", "007", 2));
-        obstacles.add(new Obstacle("014", "031", 2));
-        obstacles.add(new Obstacle("050", "060", 2));
-        obstacles.add(new Obstacle("061", "062", 2));
-        obstacles.add(new Obstacle("062", "063", 2));
-        
-        
+        // set the cost unreachably high to emphasize the way around
+        obstacles.add(new Obstacle("008", "015", 100));
+        obstacles.add(new Obstacle("004", "011", 100));
+        obstacles.add(new Obstacle("004", "012", 100));
+        obstacles.add(new Obstacle("004", "005", 100));
+        obstacles.add(new Obstacle("006", "012", 100));
+        obstacles.add(new Obstacle("020", "013", 100));
+        obstacles.add(new Obstacle("014", "007", 100));
+        obstacles.add(new Obstacle("014", "031", 100));
+        obstacles.add(new Obstacle("050", "060", 100));
+        obstacles.add(new Obstacle("061", "062", 100));
+        obstacles.add(new Obstacle("062", "063", 100));       
     }
     
     protected void populateNeigbors(StorageSquare square){

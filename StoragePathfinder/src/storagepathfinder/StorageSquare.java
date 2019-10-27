@@ -14,18 +14,20 @@ import java.util.List;
  * @author nsc
  */
 public class StorageSquare {
-    private final String name;
-    private final int floorNr;
-    private final int colNr;
-    private final int rowNr;
-    private HashMap<String, Integer> neighbors;
+    private String name;
+    private int floorNr;
+    private int colNr;
+    private int rowNr;
+    private HashMap<StorageSquare, Integer> neighbors;
+    //used for calculation in a* algorithm
+    private double distanceToStart = 0;
     
     public StorageSquare(String name, int floorNr, int colNr, int rowNr){
         this.name = name; 
         this.floorNr = floorNr;
         this.colNr = colNr;
         this.rowNr = rowNr;
-        neighbors = new HashMap<>();
+        neighbors = new HashMap<StorageSquare, Integer>();
     }
 
     public String getName() {
@@ -44,19 +46,39 @@ public class StorageSquare {
         return rowNr;
     }
 
-    public HashMap<String, Integer> getNeighbors() {
+    public HashMap<StorageSquare, Integer> getNeighbors() {
         return neighbors;
     }
     
     public void addNeighbor(StorageSquare neighbor, int price){
-        neighbors.put(neighbor.name, price);
+        neighbors.put(neighbor, price);
     }
     
-    //only for debug purposes!
+    public void removeNeighbor(StorageSquare neighbor){
+        neighbors.remove(neighbor);
+    }
+    
+    public double getDistanceToStart(){
+        return distanceToStart;
+    }
+    
+    public void setDistanceToStart(double distanceToStart){
+        this.distanceToStart = distanceToStart;
+    }
+    
+    public void test(){
+        List<String> myList = Arrays.asList("a1", "a2", "b1", "c2", "c1");
+        myList.stream()
+                .filter(s -> s.startsWith("c"))
+                .map(String::toUpperCase)
+                .sorted()
+                .forEach(System.out::println);
+    }
+    
     public void printSquareInformation(){
         System.out.println("Square " + name);
         neighbors.forEach((key, value) -> {
-            System.out.println("     Neigbor " + key + ", Price: " + value);
+            System.out.println("     Neigbor " + key.name + ", Price: " + value);
         });
     }      
 }
