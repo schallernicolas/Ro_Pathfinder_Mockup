@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @author nsc
  */
 public class Storage {
-    private ArrayList<StorageSquare> storageSquares = new ArrayList<>();
+    private static ArrayList<StorageSquare> storageSquares = new ArrayList<>();
     private ArrayList<Obstacle> obstacles = new ArrayList<>();
     
     public Storage(){
@@ -26,7 +26,7 @@ public class Storage {
         generateStorageSquares();
         generateObstacles();
         storageSquares.forEach((n) -> populateNeigbors(n));
-        storageSquares.forEach((n) -> n.printSquareInformation());
+        //storageSquares.forEach((n) -> n.printSquareInformation());
         
     }
     
@@ -120,7 +120,7 @@ public class Storage {
         this.obstacles = obstacles;
     }
 
-    protected ArrayList<StorageSquare> getStorageSquares() {
+    protected static ArrayList<StorageSquare> getStorageSquares() {
         return storageSquares;
     }
     

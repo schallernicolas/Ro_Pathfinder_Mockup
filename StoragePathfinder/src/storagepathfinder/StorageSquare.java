@@ -88,4 +88,9 @@ public class StorageSquare {
             return square1.rowNr - square2.rowNr;
         }
     }
+    
+    @Override
+    public String toString() {
+        return name;
+    }
 }

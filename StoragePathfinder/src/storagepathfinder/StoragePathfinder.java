@@ -5,6 +5,7 @@
  */
 package storagepathfinder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,22 +20,26 @@ public class StoragePathfinder {
     public static void main(String[] args) {
         Storage storage = new Storage();
         storage.generateStorage();
-        List<StorageSquare> squares = storage.getStorageSquares();
-        String startSquare = "004";
-        String endSquare = "012";        
-        AStarPathfinder aStarPathfinder = new AStarPathfinder(squares);
-        List<StorageSquare> shortestPath;
+        List<StorageSquare> squareList = new ArrayList<>();
+        try{
+            squareList.add(storage.getSquareByName("018"));
+            squareList.add(storage.getSquareByName("004"));
+            squareList.add(storage.getSquareByName("040"));
+            squareList.add(storage.getSquareByName("001"));
+            squareList.add(storage.getSquareByName("063"));
+            squareList.add(storage.getSquareByName("013"));
+            squareList.add(storage.getSquareByName("021"));
+            squareList.add(storage.getSquareByName("043"));
+            squareList.add(storage.getSquareByName("003"));
+            squareList.add(storage.getSquareByName("009"));
+            squareList.add(storage.getSquareByName("051"));
+            squareList.add(storage.getSquareByName("008"));
+        }catch(SquareNotPresentInStorageException e){
+            System.out.println("Lol, no!");
+        }        
         
-        storage.printStorage();
-        
-        try{   
-            shortestPath = aStarPathfinder.findShortestPathBetweenTwoNodes(storage.getSquareByName(startSquare), storage.getSquareByName(endSquare));
-        } catch (SquareNotPresentInStorageException e){
-            System.out.println("Either specified start or end square is not present in storage! Start square was: " + startSquare + "; end square was: " + endSquare);
-            return;
-        }
-        
-        printShortestPath(shortestPath);
+        SimulatedAnnealing sa = new SimulatedAnnealing(squareList);
+        sa.simulateAnnealing();
     }
     
     private static void printShortestPath(List<StorageSquare> path){

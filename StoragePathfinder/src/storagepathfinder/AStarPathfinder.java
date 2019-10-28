@@ -20,14 +20,10 @@ import java.util.Queue;
  * @author nsc
  */
 public class AStarPathfinder {
+        
+    private static List<StorageSquare> squares = Storage.getStorageSquares();
     
-    private final List<StorageSquare> squares;
-    
-    public AStarPathfinder(List<StorageSquare> squares){
-        this.squares = squares;
-    }
-    
-    public List<StorageSquare> findShortestPathBetweenTwoNodes(StorageSquare startNode, StorageSquare endNode){
+    public static double findShortestPathBetweenTwoNodes(StorageSquare startNode, StorageSquare endNode){
         HashMap<StorageSquare, StorageSquare> parentMap = new HashMap<>();
         HashSet<StorageSquare> visited = new HashSet<>();
         Map<StorageSquare, Double> distances = initDistances(squares);
@@ -47,7 +43,9 @@ public class AStarPathfinder {
                 visited.add(current);
                 // if last element in PQ reached
                 if (current.equals(endNode)) {
-                    return reconstructPath(startNode, endNode, parentMap);
+                    // if actual path is asked, use commented method below
+                    //return reconstructPath(startNode, endNode, parentMap);
+                    return current.getDistanceToStart();
                 }
 
                 for (Map.Entry<StorageSquare, Integer> entry : current.getNeighbors().entrySet()) {
@@ -76,10 +74,10 @@ public class AStarPathfinder {
                 }
             }
         }
-        return null;
+        return 0;
     }
     
-    private PriorityQueue<StorageSquare> initQueue() {
+    private static PriorityQueue<StorageSquare> initQueue() {
         return new PriorityQueue<>(10, new Comparator<StorageSquare>() {
             public int compare(StorageSquare x, StorageSquare y) {
                 if (x.getDistanceToStart() < y.getDistanceToStart()) {
@@ -93,7 +91,7 @@ public class AStarPathfinder {
         });
 }
     
-    private Map<StorageSquare, Double> initDistances(List<StorageSquare> storageSquares){
+    private static Map<StorageSquare, Double> initDistances(List<StorageSquare> storageSquares){
         Map<StorageSquare, Double> distances = new HashMap<>();
 
         Iterator<StorageSquare> iter = storageSquares.iterator();
@@ -105,7 +103,7 @@ public class AStarPathfinder {
         return distances;
     } 
     
-    private List<StorageSquare> reconstructPath(StorageSquare start, StorageSquare goal,
+    private static List<StorageSquare> reconstructPath(StorageSquare start, StorageSquare goal,
             Map<StorageSquare, StorageSquare> parentMap) {
         // construct output list
         LinkedList<StorageSquare> path = new LinkedList<>();
