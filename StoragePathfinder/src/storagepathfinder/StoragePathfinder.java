@@ -30,21 +30,31 @@ public class StoragePathfinder {
         storage.generateStorage();
         List<StorageSquare> squares = storage.getStorageSquares();
         // from square "004"
-        String startSquare = "015";
+        String startSquare = "004";
         // to square "012"
-        String endSquare = "063";
+        String endSquare = "012";
         StorageSquare start = null;
         StorageSquare end = null;
         
+        AStarPathfinder aStarPathfinder = null;
+        try{
+            new AStarPathfinder(storage, startSquare, endSquare);
+        } catch (SquareNotPresentInStorageException e){
+            System.out.println("Either specified start or end square is not present in storage! Start square was: " + startSquare + "; end square was " + endSquare);
+            return;
+        }
+        storage.printStorage();
+         
         try{
             start = storage.getSquareByName(startSquare);
             end = storage.getSquareByName(endSquare);
         } catch (SquareNotPresentInStorageException e){
-            System.out.println("Either specified start or end square is not present in storage! Start suare was: " + startSquare + "; end square was " + endSquare);
+            System.out.println("Either specified start or end square is not present in storage! Start square was: " + startSquare + "; end square was " + endSquare);
+            return;
         }
         
-        List<StorageSquare> shortestPathBetweenTwoNodes = spf.findShortestPathBetweenTwoNodes(start, end, squares);
-        spf.printShortestPath(shortestPathBetweenTwoNodes);
+        //List<StorageSquare> shortestPathBetweenTwoNodes = spf.findShortestPathBetweenTwoNodes(start, end, squares);
+        //spf.printShortestPath(shortestPathBetweenTwoNodes);
     }
     
     private List<StorageSquare> findShortestPathBetweenTwoNodes(StorageSquare startNode, StorageSquare endNode, List<StorageSquare> squares){

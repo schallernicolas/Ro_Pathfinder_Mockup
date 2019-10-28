@@ -6,7 +6,10 @@
 package storagepathfinder;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -131,5 +134,22 @@ public class Storage {
         } else {
             throw new SquareNotPresentInStorageException();
         }
+    }
+    
+    
+    /**
+     * @desc: This method prints the whole storage on the command line by row.
+     */
+    protected void printStorage(){
+        int rowId = 0;
+        List<StorageSquare> rowNeighbors = storageSquares
+                                            .stream()
+                                            .filter(s -> s.getRowNr() == rowId)
+                                            .collect(Collectors.toList());
+        for(StorageSquare square : rowNeighbors){
+            System.out.print(square.getName() + " - " + square.getColNr() + square.getRowNr() + " | ");
+        }
+        
+                
     }
 }

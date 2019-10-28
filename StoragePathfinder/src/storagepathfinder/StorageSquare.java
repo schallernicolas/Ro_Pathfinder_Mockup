@@ -6,6 +6,7 @@
 package storagepathfinder;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class StorageSquare {
     private HashMap<StorageSquare, Integer> neighbors;
     //used for calculation in a* algorithm
     private double distanceToStart = 0;
+    private double heuristicCost = Double.POSITIVE_INFINITY;
     
     public StorageSquare(String name, int floorNr, int colNr, int rowNr){
         this.name = name; 
@@ -80,5 +82,19 @@ public class StorageSquare {
         neighbors.forEach((key, value) -> {
             System.out.println("     Neigbor " + key.name + ", Price: " + value);
         });
-    }      
+    }
+
+    public void setHeuristicCost(double heuristicCost) {
+        this.heuristicCost = heuristicCost;
+    }
+
+    public double getHeuristicCost() {
+        return heuristicCost;
+    }
+    
+    public class Sortbyrow implements Comparator<StorageSquare>{
+        public int compare(StorageSquare square1, StorageSquare square2){
+            return square1.rowNr - square2.rowNr;
+        }
+    }
 }
