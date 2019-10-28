@@ -32,7 +32,7 @@ public class StoragePathfinder {
         // from square "004"
         String startSquare = "004";
         // to square "012"
-        String endSquare = "012";
+        String endSquare = "013";
         StorageSquare start = null;
         StorageSquare end = null;
         

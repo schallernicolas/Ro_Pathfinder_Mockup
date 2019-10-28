@@ -91,10 +91,4 @@ public class StorageSquare {
     public double getHeuristicCost() {
         return heuristicCost;
     }
-    
-    public class Sortbyrow implements Comparator<StorageSquare>{
-        public int compare(StorageSquare square1, StorageSquare square2){
-            return square1.rowNr - square2.rowNr;
-        }
-    }
 }

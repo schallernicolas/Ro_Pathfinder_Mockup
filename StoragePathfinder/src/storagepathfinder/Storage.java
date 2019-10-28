@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import storagepathfinder.util.SquareColSorter;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Storage {
         generateStorageSquares();
         generateObstacles();
         storageSquares.forEach((n) -> populateNeigbors(n));
-        storageSquares.forEach((n) -> n.printSquareInformation());
+        //storageSquares.forEach((n) -> n.printSquareInformation());
         
     }
     
@@ -142,14 +143,27 @@ public class Storage {
      */
     protected void printStorage(){
         int rowId = 0;
-        List<StorageSquare> rowNeighbors = storageSquares
-                                            .stream()
-                                            .filter(s -> s.getRowNr() == rowId)
-                                            .collect(Collectors.toList());
-        for(StorageSquare square : rowNeighbors){
-            System.out.print(square.getName() + " - " + square.getColNr() + square.getRowNr() + " | ");
+        List<StorageSquare> rowSquares = null;
+        while(true){
+            rowSquares = storageSquares
+                            .stream()
+                            .filter(s -> s.getRowNr() == rowId)
+                            .sorted(new SquareColSorter())
+                            .collect(Collectors.toList());
+            if(rowSquares.isEmpty()){
+                return;
+            }
+            
+            for(StorageSquare square : rowSquares){
+                System.out.print(square.getName() + " - " + square.getColNr() + square.getRowNr() + " | ");
+            }
+            rowId ++;
         }
         
-                
+        
+    }
+    
+    protected void getRow(int rowId){
+        
     }
 }
