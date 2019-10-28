@@ -15,21 +15,20 @@ import java.util.List;
  * @author nsc
  */
 public class StorageSquare {
-    private String name;
-    private int floorNr;
-    private int colNr;
-    private int rowNr;
-    private HashMap<StorageSquare, Integer> neighbors;
+    private final String name;
+    private final int floorNr;
+    private final int colNr;
+    private final int rowNr;
+    private final HashMap<StorageSquare, Integer> neighbors;
     //used for calculation in a* algorithm
     private double distanceToStart = 0;
-    private double heuristicCost = Double.POSITIVE_INFINITY;
     
     public StorageSquare(String name, int floorNr, int colNr, int rowNr){
         this.name = name; 
         this.floorNr = floorNr;
         this.colNr = colNr;
         this.rowNr = rowNr;
-        neighbors = new HashMap<StorageSquare, Integer>();
+        neighbors = new HashMap<>();
     }
 
     public String getName() {
@@ -83,12 +82,5 @@ public class StorageSquare {
             System.out.println("     Neigbor " + key.name + ", Price: " + value);
         });
     }
-
-    public void setHeuristicCost(double heuristicCost) {
-        this.heuristicCost = heuristicCost;
-    }
-
-    public double getHeuristicCost() {
-        return heuristicCost;
-    }
+    
 }

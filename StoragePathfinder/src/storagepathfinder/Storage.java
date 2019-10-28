@@ -147,7 +147,7 @@ public class Storage {
         while(true){
             rowSquares = storageSquares
                             .stream()
-                            .filter(s -> s.getRowNr() == rowId)
+                            //.filter(s -> s.getRowNr() == rowId)
                             .sorted(new SquareColSorter())
                             .collect(Collectors.toList());
             if(rowSquares.isEmpty()){
