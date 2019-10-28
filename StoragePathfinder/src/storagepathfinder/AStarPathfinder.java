@@ -5,48 +5,116 @@
  */
 package storagepathfinder;
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  *
  * @author nsc
  */
 public class AStarPathfinder {
-    private Storage storage;
-    private StorageSquare startSquare;
-    private StorageSquare endSquare;
-    private double INFINITY = Double.POSITIVE_INFINITY;
     
-    public AStarPathfinder(Storage storage, String startSquare, String endSquare) throws SquareNotPresentInStorageException{
-        this.storage = storage;
-        this.startSquare = storage.getSquareByName(startSquare);
-        this.endSquare = storage.getSquareByName(startSquare);
-        setHeuristicCostsRecursively(this.endSquare);
-    }
-    /**
-     * 
-     * @desc: this method uses the A*-Algorithm to determine the shortest distance between 2 storage-squares
-     */
-    protected void getShortestDistanceTwoPoints(){
-        
+    private final List<StorageSquare> squares;
+    
+    public AStarPathfinder(List<StorageSquare> squares){
+        this.squares = squares;
     }
     
-    protected void setHeuristicCostsRecursively(StorageSquare square){
-        calculateHeuristicCostToEndSquare(square);
-        HashMap<StorageSquare, Integer> neighbors = endSquare.getNeighbors();
-        
-        for(StorageSquare neighbor : neighbors.keySet()){
-            if(neighbor.getHeuristicCost() != INFINITY){
-                setHeuristicCostsRecursively(square);
+    public List<StorageSquare> findShortestPathBetweenTwoNodes(StorageSquare startNode, StorageSquare endNode){
+        HashMap<StorageSquare, StorageSquare> parentMap = new HashMap<>();
+        HashSet<StorageSquare> visited = new HashSet<>();
+        Map<StorageSquare, Double> distances = initDistances(squares);
+
+        Queue<StorageSquare> priorityQueue = initQueue();
+
+        //  enque StartNode, with distance 0
+        startNode.setDistanceToStart(0);
+        distances.put(startNode, new Double(0));
+        priorityQueue.add(startNode);
+        StorageSquare current = null;
+
+        while (!priorityQueue.isEmpty()) {
+            current = priorityQueue.remove();
+
+            if (!visited.contains(current)) {
+                visited.add(current);
+                // if last element in PQ reached
+                if (current.equals(endNode)) {
+                    return reconstructPath(startNode, endNode, parentMap);
+                }
+
+                for (Map.Entry<StorageSquare, Integer> entry : current.getNeighbors().entrySet()) {
+                    StorageSquare neighbor = entry.getKey();
+                    if (!visited.contains(neighbor)) {
+
+                        // calculate predicted distance to the end node
+                        double predictedDistance = Math.abs((neighbor.getColNr() + neighbor.getRowNr())-(endNode.getColNr() + endNode.getRowNr()));
+
+                        // 1. calculate distance to neighbor. 2. calculate dist from start node
+                        double neighborDistance = entry.getValue();
+                        double totalDistance = current.getDistanceToStart() + neighborDistance + predictedDistance;
+
+                        // check if distance smaller
+                        if (totalDistance < distances.get(neighbor)) {
+                            // update current neighbor's distance
+                            distances.put(neighbor, totalDistance);
+                            // used for PriorityQueue
+                            neighbor.setDistanceToStart(totalDistance);
+                            // set parent
+                            parentMap.put(neighbor, current);
+                            // enqueue
+                            priorityQueue.add(neighbor);
+                        }
+                    }
+                }
             }
         }
+        return null;
     }
     
-    private void calculateHeuristicCostToEndSquare(StorageSquare square){
-        int distance = Math.abs((square.getColNr() + square.getRowNr())-(endSquare.getColNr() + endSquare.getRowNr()));
-        square.setHeuristicCost(distance);
+    private PriorityQueue<StorageSquare> initQueue() {
+        return new PriorityQueue<>(10, new Comparator<StorageSquare>() {
+            public int compare(StorageSquare x, StorageSquare y) {
+                if (x.getDistanceToStart() < y.getDistanceToStart()) {
+                    return -1;
+                }
+                if (x.getDistanceToStart() > y.getDistanceToStart()) {
+                    return 1;
+                }
+                return 0;
+            };
+        });
+}
+    
+    private Map<StorageSquare, Double> initDistances(List<StorageSquare> storageSquares){
+        Map<StorageSquare, Double> distances = new HashMap<>();
+
+        Iterator<StorageSquare> iter = storageSquares.iterator();
+        while (iter.hasNext()) {
+            StorageSquare node = iter.next();
+            // set everything to an unreachable value
+            distances.put(node, Double.POSITIVE_INFINITY);
+        }
+        return distances;
+    } 
+    
+    private List<StorageSquare> reconstructPath(StorageSquare start, StorageSquare goal,
+            Map<StorageSquare, StorageSquare> parentMap) {
+        // construct output list
+        LinkedList<StorageSquare> path = new LinkedList<>();
+        StorageSquare currNode = goal;
+        while (!currNode.equals(start)) {
+            path.addFirst(currNode);
+            currNode = parentMap.get(currNode);
+        }
+        path.addFirst(start);
+        return path;
     }
-    
-    
-    
 }
