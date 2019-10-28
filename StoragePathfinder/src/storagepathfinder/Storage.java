@@ -141,29 +141,102 @@ public class Storage {
     /**
      * @desc: This method prints the whole storage on the command line by row.
      */
-    protected void printStorage(){
+    protected void printStorages(){
         int rowId = 0;
-        List<StorageSquare> rowSquares = null;
+        for(int i = 0; i<=88; i++){
+            System.out.print("*");
+        }
+        System.out.print("\n");
         while(true){
-            rowSquares = storageSquares
-                            .stream()
-                            //.filter(s -> s.getRowNr() == rowId)
-                            .sorted(new SquareColSorter())
-                            .collect(Collectors.toList());
+            List<StorageSquare> rowSquares = getRow(rowId);
             if(rowSquares.isEmpty()){
+                for(int i = 0; i<=88; i++){
+                    System.out.print("*");
+                }
+                System.out.print("\n");
                 return;
             }
-            
-            for(StorageSquare square : rowSquares){
-                System.out.print(square.getName() + " - " + square.getColNr() + square.getRowNr() + " | ");
+            System.out.print("*+");
+            for(int i = 0; i<=10; i++){
+                System.out.print("-------+");
             }
+            for(StorageSquare square : rowSquares){
+                
+                System.out.print(square.getName() + " | ");
+            }
+            System.out.print("+*");
+            System.out.print("\n");
             rowId ++;
         }
         
         
     }
+    protected void printStorage(){
+        int rowId = 0;
+        while(true){
+            
+            List<StorageSquare> rowSquares = getRow(rowId);
+            if(rowSquares.isEmpty()){
+                printSeparationLine();
+                return;
+            }
+            printSeparationLine();
+            printEmptyLine();
+            
+            System.out.print("|");
+            StorageSquare squareToPrint = null;
+            
+            for(int i = 0; i<=10; i++){
+                
+                for(int j = 0; j<=rowSquares.size()-1; j++ ){
+                    if(rowSquares.get(j).getColNr() == i){
+                        squareToPrint = rowSquares.get(j);
+                    }
+                }
+                if(squareToPrint!=null){
+                    System.out.print(String.format("  %s  |", squareToPrint.getName()));
+                } else {
+                    System.out.print("       |");
+                }
+                squareToPrint = null;
+                    
+            }
+            
+            for(StorageSquare square : rowSquares){
+                
+                
+            }
+            System.out.print("\n");
+            printEmptyLine();
+            rowId ++;
+        }
+    }
     
-    protected void getRow(int rowId){
-        
+    protected void printSeparationLine(){
+        System.out.print("+");
+        for(int i = 0; i<=10; i++){
+            System.out.print("-------+");
+        }
+        System.out.print("\n");
+    }
+    
+    protected void printEmptyLine(){
+        System.out.print("|");
+        for(int i = 0; i<=10; i++){
+            System.out.print("       |");
+        }
+        System.out.print("\n");
+    }
+    
+    
+    
+    protected List<StorageSquare> getRow(int rowId){
+        List<StorageSquare> rowSquares; 
+        rowSquares = storageSquares
+                            .stream()
+                            .filter(s -> s.getRowNr() == rowId)
+                            .sorted(new SquareColSorter())
+                            .collect(Collectors.toList());
+        return rowSquares;
     }
 }
