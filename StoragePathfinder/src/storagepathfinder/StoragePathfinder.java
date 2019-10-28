@@ -43,7 +43,7 @@ public class StoragePathfinder {
     }
     
     private static void printShortestPath(List<StorageSquare> path){
-        System.out.print("Shortest Paht:");
+        System.out.print("Shortest Path:");
         for(StorageSquare square : path){
             System.out.print(" " + square.getName());
         }

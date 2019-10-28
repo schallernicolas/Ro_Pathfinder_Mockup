@@ -83,6 +83,7 @@ public class StorageSquare {
         });
     }
     
+<<<<<<< HEAD
     public class Sortbyrow implements Comparator<StorageSquare>{
         public int compare(StorageSquare square1, StorageSquare square2){
             return square1.rowNr - square2.rowNr;
@@ -93,4 +94,6 @@ public class StorageSquare {
     public String toString() {
         return name;
     }
+=======
+>>>>>>> 48fdcd7317005192fc3bfde6603ade148835a2f2
 }
