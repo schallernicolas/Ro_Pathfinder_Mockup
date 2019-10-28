@@ -30,9 +30,19 @@ public class StoragePathfinder {
         storage.generateStorage();
         List<StorageSquare> squares = storage.getStorageSquares();
         // from square "004"
-        StorageSquare start = squares.get(11);
+        String startSquare = "015";
         // to square "012"
-        StorageSquare end = squares.get(13);
+        String endSquare = "063";
+        StorageSquare start = null;
+        StorageSquare end = null;
+        
+        try{
+            start = storage.getSquareByName(startSquare);
+            end = storage.getSquareByName(endSquare);
+        } catch (SquareNotPresentInStorageException e){
+            System.out.println("Either specified start or end square is not present in storage! Start suare was: " + startSquare + "; end square was " + endSquare);
+        }
+        
         List<StorageSquare> shortestPathBetweenTwoNodes = spf.findShortestPathBetweenTwoNodes(start, end, squares);
         spf.printShortestPath(shortestPathBetweenTwoNodes);
     }
@@ -57,7 +67,7 @@ public class StoragePathfinder {
                 visited.add(current);
                 // if last element in PQ reached
                 if (current.equals(endNode)) {
-                    return recostructPath(startNode, endNode, parentMap);
+                    return reconstructPath(startNode, endNode, parentMap);
                 }
 
                 for (Map.Entry<StorageSquare, Integer> entry : current.getNeighbors().entrySet()) {
@@ -115,7 +125,7 @@ public class StoragePathfinder {
         return distances;
     } 
     
-    private List<StorageSquare> recostructPath(StorageSquare start, StorageSquare goal,
+    private List<StorageSquare> reconstructPath(StorageSquare start, StorageSquare goal,
             Map<StorageSquare, StorageSquare> parentMap) {
         // construct output list
         LinkedList<StorageSquare> path = new LinkedList<>();

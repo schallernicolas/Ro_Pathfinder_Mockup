@@ -27,7 +27,7 @@ public class Storage {
         
     }
     
-    //test set of storage squares
+    //set of storage squares
     private void generateStorageSquares(){
         storageSquares.add(new StorageSquare("015", 0, 0, 0));
         storageSquares.add(new StorageSquare("008", 0, 0, 1));
@@ -79,7 +79,10 @@ public class Storage {
         obstacles.add(new Obstacle("014", "031", 100));
         obstacles.add(new Obstacle("050", "060", 100));
         obstacles.add(new Obstacle("061", "062", 100));
-        obstacles.add(new Obstacle("062", "063", 100));       
+        obstacles.add(new Obstacle("062", "063", 100));
+        obstacles.add(new Obstacle("031", "007", 100));
+        obstacles.add(new Obstacle("031", "042", 100));
+        
     }
     
     protected void populateNeigbors(StorageSquare square){
@@ -116,5 +119,17 @@ public class Storage {
 
     protected ArrayList<StorageSquare> getStorageSquares() {
         return storageSquares;
+    }
+    
+    protected StorageSquare getSquareByName(String name) throws SquareNotPresentInStorageException{
+        Optional<StorageSquare> square = storageSquares
+                                            .stream()
+                                            .filter(s -> s.getName().equals(name))
+                                            .findFirst();
+        if(square.isPresent()){
+            return square.get();
+        } else {
+            throw new SquareNotPresentInStorageException();
+        }
     }
 }
