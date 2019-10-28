@@ -72,6 +72,7 @@ public class Tour {
     public String toString() {
         String geneString = "|";
         for (int i = 0; i < tour.size(); i++) {
+            getSquare(i).setVisitOrder(i+1);
             geneString += getSquare(i)+"|";
         }
         return geneString;

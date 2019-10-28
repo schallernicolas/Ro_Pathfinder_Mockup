@@ -23,8 +23,6 @@ public class StoragePathfinder {
         List<StorageSquare> squareList = new ArrayList<>();
         try{
             squareList.add(storage.getSquareByName("018"));
-            squareList.add(storage.getSquareByName("004"));
-            squareList.add(storage.getSquareByName("040"));
             squareList.add(storage.getSquareByName("001"));
             squareList.add(storage.getSquareByName("063"));
             squareList.add(storage.getSquareByName("013"));
@@ -40,6 +38,7 @@ public class StoragePathfinder {
         
         SimulatedAnnealing sa = new SimulatedAnnealing(squareList);
         sa.simulateAnnealing();
+        storage.printStorage();
     }
     
     private static void printShortestPath(List<StorageSquare> path){

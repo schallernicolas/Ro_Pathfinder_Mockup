@@ -195,19 +195,36 @@ public class Storage {
                 }
                 if(squareToPrint!=null){
                     System.out.print(String.format("  %s  |", squareToPrint.getName()));
+                    //System.out.print(String.format("% 7d  |", squareToPrint.getVisitOrder()));
                 } else {
                     System.out.print("       |");
                 }
                 squareToPrint = null;
                     
             }
+            System.out.print("\n");
             
-            for(StorageSquare square : rowSquares){
+            System.out.print("|");
+            for(int i = 0; i<=10; i++){
                 
-                
+                for(int j = 0; j<=rowSquares.size()-1; j++ ){
+                    if(rowSquares.get(j).getColNr() == i){
+                        squareToPrint = rowSquares.get(j);
+                    }
+                }
+                if(squareToPrint!=null){
+                    if(squareToPrint.getVisitOrder() != 0){
+                        System.out.print(String.format("%4d   |", squareToPrint.getVisitOrder()));
+                    } else {
+                        System.out.print("       |");
+                    }
+                } else {
+                    System.out.print("       |");
+                }
+                squareToPrint = null;
+                    
             }
             System.out.print("\n");
-            printEmptyLine();
             rowId ++;
         }
     }

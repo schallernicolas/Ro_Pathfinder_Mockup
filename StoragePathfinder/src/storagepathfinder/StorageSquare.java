@@ -22,6 +22,7 @@ public class StorageSquare {
     private final HashMap<StorageSquare, Integer> neighbors;
     //used for calculation in a* algorithm
     private double distanceToStart = 0;
+    private int visitOrder = 0;
     
     public StorageSquare(String name, int floorNr, int colNr, int rowNr){
         this.name = name; 
@@ -87,4 +88,14 @@ public class StorageSquare {
     public String toString() {
         return name;
     }
+
+    public int getVisitOrder() {
+        return visitOrder;
+    }
+
+    public void setVisitOrder(int visitOrder) {
+        this.visitOrder = visitOrder;
+    }
+    
+    
 }
