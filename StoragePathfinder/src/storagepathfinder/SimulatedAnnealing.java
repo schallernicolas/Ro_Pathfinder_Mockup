@@ -77,7 +77,7 @@ public class SimulatedAnnealing {
         System.out.println("Tour: " + best);
     }
     
-    private int getRandomSwapPosition(){
+    private int getRandomSwapPositionOld(){
         int randomPosition = 0;
         while(true){
             randomPosition = (int) (squareList.size() * Math.random());
@@ -85,6 +85,13 @@ public class SimulatedAnnealing {
                 return randomPosition;
             }            
         }
+    }
+    
+    private int getRandomSwapPosition(){
+        int randomPosition = 0;
+        double random = Math.random();
+        randomPosition = (int) (squareList.size() * random);
+        return randomPosition;
     }
     
 }

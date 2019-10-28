@@ -20,23 +20,23 @@ public class StoragePathfinder {
     public static void main(String[] args) {
         Storage storage = new Storage();
         storage.generateStorage();
-        List<StorageSquare> squareList = new ArrayList<>();
+        List<StorageSquare> squaresToVisit = new ArrayList<>();
         try{
-            squareList.add(storage.getSquareByName("018"));
-            squareList.add(storage.getSquareByName("001"));
-            squareList.add(storage.getSquareByName("063"));
-            squareList.add(storage.getSquareByName("013"));
-            squareList.add(storage.getSquareByName("021"));
-            squareList.add(storage.getSquareByName("043"));
-            squareList.add(storage.getSquareByName("003"));
-            squareList.add(storage.getSquareByName("009"));
-            squareList.add(storage.getSquareByName("051"));
-            squareList.add(storage.getSquareByName("008"));
+            squaresToVisit.add(storage.getSquareByName("018"));
+            squaresToVisit.add(storage.getSquareByName("001"));
+            squaresToVisit.add(storage.getSquareByName("063"));
+            squaresToVisit.add(storage.getSquareByName("013"));
+            squaresToVisit.add(storage.getSquareByName("021"));
+            squaresToVisit.add(storage.getSquareByName("043"));
+            squaresToVisit.add(storage.getSquareByName("003"));
+            squaresToVisit.add(storage.getSquareByName("009"));
+            squaresToVisit.add(storage.getSquareByName("051"));
+            squaresToVisit.add(storage.getSquareByName("008"));
         }catch(SquareNotPresentInStorageException e){
             System.out.println("Lol, no!");
         }        
         
-        SimulatedAnnealing sa = new SimulatedAnnealing(squareList);
+        SimulatedAnnealing sa = new SimulatedAnnealing(squaresToVisit);
         sa.simulateAnnealing();
         storage.printStorage();
     }
