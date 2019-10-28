@@ -137,40 +137,9 @@ public class Storage {
         }
     }
     
-    
     /**
      * @desc: This method prints the whole storage on the command line by row.
      */
-    protected void printStorages(){
-        int rowId = 0;
-        for(int i = 0; i<=88; i++){
-            System.out.print("*");
-        }
-        System.out.print("\n");
-        while(true){
-            List<StorageSquare> rowSquares = getRow(rowId);
-            if(rowSquares.isEmpty()){
-                for(int i = 0; i<=88; i++){
-                    System.out.print("*");
-                }
-                System.out.print("\n");
-                return;
-            }
-            System.out.print("*+");
-            for(int i = 0; i<=10; i++){
-                System.out.print("-------+");
-            }
-            for(StorageSquare square : rowSquares){
-                
-                System.out.print(square.getName() + " | ");
-            }
-            System.out.print("+*");
-            System.out.print("\n");
-            rowId ++;
-        }
-        
-        
-    }
     protected void printStorage(){
         int rowId = 0;
         while(true){
