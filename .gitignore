@@ -23,3 +23,17 @@
 hs_err_pid*
 /StoragePathfinder/build/
 /StoragePathfinder/nbproject/private/
+
+# eclipse project file
+.settings/
+.classpath
+.project
+
+# NetBeans specific
+nbproject/private/
+/StoragePathfinder/build/
+/StoragePathfinder/nbbuild/
+/StoragePathfinder/dist/
+/StoragePathfinder/nbdist/
+/StoragePathfinder/nbactions.xml
+/StoragePathfinder/nb-configuration.xml
