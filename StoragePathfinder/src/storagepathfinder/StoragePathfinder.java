@@ -22,16 +22,19 @@ public class StoragePathfinder {
         storage.generateStorage();
         List<StorageSquare> squaresToVisit = new ArrayList<>();
         try{
-            squaresToVisit.add(storage.getSquareByName("018"));
-            squaresToVisit.add(storage.getSquareByName("001"));
+            squaresToVisit.add(storage.getSquareByName("010"));
+            squaresToVisit.add(storage.getSquareByName("007"));
             squaresToVisit.add(storage.getSquareByName("063"));
             squaresToVisit.add(storage.getSquareByName("013"));
             squaresToVisit.add(storage.getSquareByName("021"));
             squaresToVisit.add(storage.getSquareByName("043"));
-            squaresToVisit.add(storage.getSquareByName("003"));
+            squaresToVisit.add(storage.getSquareByName("008"));
             squaresToVisit.add(storage.getSquareByName("009"));
             squaresToVisit.add(storage.getSquareByName("051"));
-            squaresToVisit.add(storage.getSquareByName("008"));
+            squaresToVisit.add(storage.getSquareByName("060"));
+            squaresToVisit.add(storage.getSquareByName("040"));
+            squaresToVisit.add(storage.getSquareByName("003"));
+            
         }catch(SquareNotPresentInStorageException e){
             System.out.println("Lol, no!");
         }        

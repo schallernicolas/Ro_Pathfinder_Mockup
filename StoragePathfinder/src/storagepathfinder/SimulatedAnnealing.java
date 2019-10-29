@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author admin
+ * @author preusrem
  */
 public class SimulatedAnnealing {
     
@@ -77,21 +77,15 @@ public class SimulatedAnnealing {
         System.out.println("Tour: " + best);
     }
     
-    private int getRandomSwapPositionOld(){
-        int randomPosition = 0;
-        while(true){
-            randomPosition = (int) (squareList.size() * Math.random());
-            if(randomPosition > 1 && randomPosition < squareList.size()-2){
-                return randomPosition;
-            }            
-        }
-    }
-    
     private int getRandomSwapPosition(){
         int randomPosition = 0;
-        double random = Math.random();
-        randomPosition = (int) (squareList.size() * random);
-        return randomPosition;
+        while(true){
+            double random = Math.random();
+            randomPosition = (int) (squareList.size() * random);
+            if(randomPosition > 0 && randomPosition < squareList.size()-1){
+                return randomPosition;
+            }
+        }
     }
     
 }
