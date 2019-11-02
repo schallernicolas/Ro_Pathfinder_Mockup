@@ -27,12 +27,14 @@ public class Storage {
         generateStorageSquares();
         generateObstacles();
         storageSquares.forEach((n) -> populateNeigbors(n));
+        generateElevatorConnections();
         //storageSquares.forEach((n) -> n.printSquareInformation());
         
     }
     
     //set of storage squares
     private void generateStorageSquares(){
+        //ground floor
         storageSquares.add(new StorageSquare("015", 0, 0, 0));
         storageSquares.add(new StorageSquare("008", 0, 0, 1));
         storageSquares.add(new StorageSquare("001", 0, 0, 2));
@@ -68,6 +70,84 @@ public class Storage {
         storageSquares.add(new StorageSquare("061", 0, 10, 1));
         storageSquares.add(new StorageSquare("062", 0, 10, 2));
         storageSquares.add(new StorageSquare("063", 0, 10, 3));
+        
+        //first floor
+        storageSquares.add(new StorageSquare("115", 1, 0, 0));
+        storageSquares.add(new StorageSquare("108", 1, 0, 1));
+        storageSquares.add(new StorageSquare("101", 1, 0, 2));
+        storageSquares.add(new StorageSquare("116", 1, 1, 0));
+        storageSquares.add(new StorageSquare("109", 1, 1, 1));
+        storageSquares.add(new StorageSquare("102", 1, 1, 2));
+        storageSquares.add(new StorageSquare("117", 1, 2, 0));
+        storageSquares.add(new StorageSquare("110", 1, 2, 1));
+        storageSquares.add(new StorageSquare("103", 1, 2, 2));
+        storageSquares.add(new StorageSquare("118", 1, 3, 0));
+        storageSquares.add(new StorageSquare("111", 1, 3, 1));
+        storageSquares.add(new StorageSquare("104", 1, 3, 2));
+        storageSquares.add(new StorageSquare("119", 1, 4, 0));
+        storageSquares.add(new StorageSquare("112", 1, 4, 1));
+        storageSquares.add(new StorageSquare("105", 1, 4, 2));
+        storageSquares.add(new StorageSquare("120", 1, 5, 0));
+        storageSquares.add(new StorageSquare("113", 1, 5, 1));
+        storageSquares.add(new StorageSquare("106", 1, 5, 2));
+        storageSquares.add(new StorageSquare("121", 1, 6, 0));
+        storageSquares.add(new StorageSquare("114", 1, 6, 1));
+        storageSquares.add(new StorageSquare("107", 1, 6, 2));
+        storageSquares.add(new StorageSquare("130", 1, 7, 0));
+        storageSquares.add(new StorageSquare("131", 1, 7, 1));
+        storageSquares.add(new StorageSquare("132", 1, 7, 2));
+        storageSquares.add(new StorageSquare("133", 1, 7, 3));
+        storageSquares.add(new StorageSquare("140", 1, 8, 0));
+        storageSquares.add(new StorageSquare("141", 1, 8, 1));
+        storageSquares.add(new StorageSquare("142", 1, 8, 2));
+        storageSquares.add(new StorageSquare("143", 1, 8, 3));
+        storageSquares.add(new StorageSquare("150", 1, 9, 0));
+        storageSquares.add(new StorageSquare("151", 1, 9, 1));
+        storageSquares.add(new StorageSquare("152", 1, 9, 2));
+        storageSquares.add(new StorageSquare("153", 1, 9, 3));
+        storageSquares.add(new StorageSquare("160", 1, 10, 0));
+        storageSquares.add(new StorageSquare("161", 1, 10, 1));
+        storageSquares.add(new StorageSquare("162", 1, 10, 2));
+        storageSquares.add(new StorageSquare("163", 1, 10, 3));
+        
+        //second floor
+        storageSquares.add(new StorageSquare("215", 2, 0, 0));
+        storageSquares.add(new StorageSquare("208", 2, 0, 1));
+        storageSquares.add(new StorageSquare("201", 2, 0, 2));
+        storageSquares.add(new StorageSquare("216", 2, 1, 0));
+        storageSquares.add(new StorageSquare("209", 2, 1, 1));
+        storageSquares.add(new StorageSquare("202", 2, 1, 2));
+        storageSquares.add(new StorageSquare("217", 2, 2, 0));
+        storageSquares.add(new StorageSquare("210", 2, 2, 1));
+        storageSquares.add(new StorageSquare("203", 2, 2, 2));
+        storageSquares.add(new StorageSquare("218", 2, 3, 0));
+        storageSquares.add(new StorageSquare("211", 2, 3, 1));
+        storageSquares.add(new StorageSquare("204", 2, 3, 2));
+        storageSquares.add(new StorageSquare("219", 2, 4, 0));
+        storageSquares.add(new StorageSquare("212", 2, 4, 1));
+        storageSquares.add(new StorageSquare("205", 2, 4, 2));
+        storageSquares.add(new StorageSquare("220", 2, 5, 0));
+        storageSquares.add(new StorageSquare("213", 2, 5, 1));
+        storageSquares.add(new StorageSquare("206", 2, 5, 2));
+        storageSquares.add(new StorageSquare("221", 2, 6, 0));
+        storageSquares.add(new StorageSquare("214", 2, 6, 1));
+        storageSquares.add(new StorageSquare("207", 2, 6, 2));
+        storageSquares.add(new StorageSquare("230", 2, 7, 0));
+        storageSquares.add(new StorageSquare("231", 2, 7, 1));
+        storageSquares.add(new StorageSquare("232", 2, 7, 2));
+        storageSquares.add(new StorageSquare("233", 2, 7, 3));
+        storageSquares.add(new StorageSquare("240", 2, 8, 0));
+        storageSquares.add(new StorageSquare("241", 2, 8, 1));
+        storageSquares.add(new StorageSquare("242", 2, 8, 2));
+        storageSquares.add(new StorageSquare("243", 2, 8, 3));
+        storageSquares.add(new StorageSquare("250", 2, 9, 0));
+        storageSquares.add(new StorageSquare("251", 2, 9, 1));
+        storageSquares.add(new StorageSquare("252", 2, 9, 2));
+        storageSquares.add(new StorageSquare("253", 2, 9, 3));
+        storageSquares.add(new StorageSquare("260", 2, 10, 0));
+        storageSquares.add(new StorageSquare("261", 2, 10, 1));
+        storageSquares.add(new StorageSquare("262", 2, 10, 2));
+        storageSquares.add(new StorageSquare("263", 2, 10, 3));
     }
     
     private void generateObstacles(){
@@ -98,6 +178,29 @@ public class Storage {
                 .filter(s -> s.getRowNr() == square.getRowNr()-1 || s.getRowNr() == square.getRowNr() || s.getRowNr() == square.getRowNr()+1)
                 .filter(s -> !s.equals(square))
                 .forEach(s -> square.addNeighbor(s, getPriceOfNeighbor(square, s)));
+    }
+    
+    protected void generateElevatorConnections() {
+        StorageSquare elevatorSquareG0 = null;
+        StorageSquare elevatorSquareG1 = null;
+        StorageSquare elevatorSquareG2 = null;
+        try{
+            elevatorSquareG0 = getSquareByName("011");
+            elevatorSquareG1 = getSquareByName("111");
+            elevatorSquareG2 = getSquareByName("211");
+        }catch (SquareNotPresentInStorageException e){
+            return;
+        }
+        //connections from ground floor
+        elevatorSquareG0.addNeighbor(elevatorSquareG1, 10);
+        elevatorSquareG0.addNeighbor(elevatorSquareG2, 20);
+        //connections from first floor
+        elevatorSquareG1.addNeighbor(elevatorSquareG0, 10);
+        elevatorSquareG1.addNeighbor(elevatorSquareG2, 10);
+        //connections from second floor
+        elevatorSquareG2.addNeighbor(elevatorSquareG1, 10);
+        elevatorSquareG2.addNeighbor(elevatorSquareG0, 20);
+            
     }
     
     private int getPriceOfNeighbor(StorageSquare square, StorageSquare neighbor){
@@ -140,62 +243,64 @@ public class Storage {
     /**
      * @desc: This method prints the whole storage on the command line by row.
      */
-    protected void printStorage(){
-        int rowId = 0;
-        while(true){
-            
-            List<StorageSquare> rowSquares = getRow(rowId);
-            if(rowSquares.isEmpty()){
+    protected void printStorage() {
+        int floorId = 0;
+        for (int i = 0; i <= 2; i++) {
+            System.out.println("Storage floor " + i);
+            int rowId = 0;
+            while (rowId<4) {
+                List<StorageSquare> rowSquares = getRow(floorId, rowId);
                 printSeparationLine();
-                return;
-            }
-            printSeparationLine();
-            printEmptyLine();
-            
-            System.out.print("|");
-            StorageSquare squareToPrint = null;
-            
-            for(int i = 0; i<=10; i++){
-                
-                for(int j = 0; j<=rowSquares.size()-1; j++ ){
-                    if(rowSquares.get(j).getColNr() == i){
-                        squareToPrint = rowSquares.get(j);
+                printEmptyLine();
+
+                System.out.print("|");
+                StorageSquare squareToPrint = null;
+
+                for (int j = 0; j <= 10; j++) {
+
+                    for (int k = 0; k <= rowSquares.size() - 1; k++) {
+                        if (rowSquares.get(k).getColNr() == j) {
+                            squareToPrint = rowSquares.get(k);
+                        }
                     }
-                }
-                if(squareToPrint!=null){
-                    System.out.print(String.format("  %s  |", squareToPrint.getName()));
-                    //System.out.print(String.format("% 7d  |", squareToPrint.getVisitOrder()));
-                } else {
-                    System.out.print("       |");
-                }
-                squareToPrint = null;
-                    
-            }
-            System.out.print("\n");
-            
-            System.out.print("|");
-            for(int i = 0; i<=10; i++){
-                
-                for(int j = 0; j<=rowSquares.size()-1; j++ ){
-                    if(rowSquares.get(j).getColNr() == i){
-                        squareToPrint = rowSquares.get(j);
-                    }
-                }
-                if(squareToPrint!=null){
-                    if(squareToPrint.getVisitOrder() != 0){
-                        System.out.print(String.format("%4d   |", squareToPrint.getVisitOrder()));
+                    if (squareToPrint != null) {
+                        System.out.print(String.format("  %s  |", squareToPrint.getName()));
                     } else {
                         System.out.print("       |");
                     }
-                } else {
-                    System.out.print("       |");
+                    squareToPrint = null;
+
                 }
-                squareToPrint = null;
-                    
+                System.out.print("\n");
+
+                System.out.print("|");
+                for (int j = 0; j <= 10; j++) {
+
+                    for (int k = 0; k <= rowSquares.size() - 1; k++) {
+                        if (rowSquares.get(k).getColNr() == j) {
+                            squareToPrint = rowSquares.get(k);
+                        }
+                    }
+                    if (squareToPrint != null) {
+                        if (squareToPrint.getVisitOrder() != 0) {
+                            System.out.print(String.format("%4d   |", squareToPrint.getVisitOrder()));
+                        } else {
+                            System.out.print("       |");
+                        }
+                    } else {
+                        System.out.print("       |");
+                    }
+                    squareToPrint = null;
+
+                }
+                System.out.print("\n");
+                rowId++;
             }
-            System.out.print("\n");
-            rowId ++;
+            printSeparationLine();
+            System.out.println();
+            floorId++;
         }
+
     }
     
     protected void printSeparationLine(){
@@ -216,10 +321,11 @@ public class Storage {
     
     
     
-    protected List<StorageSquare> getRow(int rowId){
+    protected List<StorageSquare> getRow(int floorId, int rowId){
         List<StorageSquare> rowSquares; 
         rowSquares = storageSquares
                             .stream()
+                            .filter(s -> s.getFloorNr() == floorId)
                             .filter(s -> s.getRowNr() == rowId)
                             .sorted(new SquareColSorter())
                             .collect(Collectors.toList());

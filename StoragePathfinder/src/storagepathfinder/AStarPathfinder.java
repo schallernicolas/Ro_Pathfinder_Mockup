@@ -53,7 +53,12 @@ public class AStarPathfinder {
                     if (!visited.contains(neighbor)) {
 
                         // calculate predicted distance to the end node
-                        double predictedDistance = Math.abs((neighbor.getColNr() + neighbor.getRowNr())-(endNode.getColNr() + endNode.getRowNr()));
+                        double predictedDistance = 0.0;
+                        if(neighbor.getFloorNr() == endNode.getFloorNr()){
+                            predictedDistance = Math.abs((neighbor.getColNr() + neighbor.getRowNr())-(endNode.getColNr() + endNode.getRowNr()));
+                        } else {
+                            
+                        }
 
                         // 1. calculate distance to neighbor. 2. calculate dist from start node
                         double neighborDistance = entry.getValue();
