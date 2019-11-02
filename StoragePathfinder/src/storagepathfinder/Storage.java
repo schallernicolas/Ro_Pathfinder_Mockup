@@ -192,14 +192,14 @@ public class Storage {
             return;
         }
         //connections from ground floor
-        elevatorSquareG0.addNeighbor(elevatorSquareG1, 10);
-        elevatorSquareG0.addNeighbor(elevatorSquareG2, 20);
+        elevatorSquareG0.addNeighbor(elevatorSquareG1, 20);
+        elevatorSquareG0.addNeighbor(elevatorSquareG2, 30);
         //connections from first floor
-        elevatorSquareG1.addNeighbor(elevatorSquareG0, 10);
-        elevatorSquareG1.addNeighbor(elevatorSquareG2, 10);
+        elevatorSquareG1.addNeighbor(elevatorSquareG0, 20);
+        elevatorSquareG1.addNeighbor(elevatorSquareG2, 20);
         //connections from second floor
-        elevatorSquareG2.addNeighbor(elevatorSquareG1, 10);
-        elevatorSquareG2.addNeighbor(elevatorSquareG0, 20);
+        elevatorSquareG2.addNeighbor(elevatorSquareG1, 20);
+        elevatorSquareG2.addNeighbor(elevatorSquareG0, 30);
             
     }
     
@@ -232,6 +232,18 @@ public class Storage {
         Optional<StorageSquare> square = storageSquares
                                             .stream()
                                             .filter(s -> s.getName().equals(name))
+                                            .findFirst();
+        if(square.isPresent()){
+            return square.get();
+        } else {
+            throw new SquareNotPresentInStorageException();
+        }
+    }
+    
+    protected StorageSquare getElevatorSquareForFloor(int floorNr) throws SquareNotPresentInStorageException{
+        Optional<StorageSquare> square = storageSquares
+                                            .stream()
+                                            .filter(s -> s.getName().equals(floorNr + "11"))
                                             .findFirst();
         if(square.isPresent()){
             return square.get();

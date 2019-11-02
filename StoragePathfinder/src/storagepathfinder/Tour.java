@@ -61,7 +61,7 @@ public class Tour {
             int tourDistance = 0;
             for (int i=0; i < tour.size(); i++) {
                 if(i+1 < tour.size()){
-                    distance += AStarPathfinder.findShortestPathBetweenTwoNodes(tour.get(i), tour.get(i+1));
+                    distance += AStarPathfinder.findShortestPathBetweenTwoNodesOnSameFloor(tour.get(i), tour.get(i+1));
                 }
             }
         }

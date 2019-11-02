@@ -23,7 +23,33 @@ public class AStarPathfinder {
         
     private static List<StorageSquare> squares = Storage.getStorageSquares();
     
-    public static double findShortestPathBetweenTwoNodes(StorageSquare startNode, StorageSquare endNode){
+    public static double findShortestPathBetweenTwoNodes (StorageSquare startNode, StorageSquare endNode){
+        if(startNode.getFloorNr() == endNode.getFloorNr()){
+            return findShortestPathBetweenTwoNodesOnSameFloor(startNode, endNode);
+        } else {
+            double price = 0.0;
+            StorageSquare elevatorSquareForStartLevel = squares
+                                            .stream()
+                                            .filter(s -> s.getName().equals(startNode.getFloorNr() + "11"))
+                                            .findFirst()
+                                            .get();
+            StorageSquare elevatorSquareForEndLevel = squares
+                                            .stream()
+                                            .filter(s -> s.getName().equals(endNode.getFloorNr() + "11"))
+                                            .findFirst()
+                                            .get();
+            //first, calculate shortest distance to elevator
+            price += findShortestPathBetweenTwoNodesOnSameFloor(startNode, elevatorSquareForStartLevel);
+            //then, calculate cost to use the elevator
+            double priceToDesiredLevel = endNode.getNeighbors().get(elevatorSquareForEndLevel);
+            price += priceToDesiredLevel;
+            //finally, calculate cost for elevator on desired level to target square
+            price += findShortestPathBetweenTwoNodesOnSameFloor(elevatorSquareForEndLevel, endNode);
+            return price;
+        }
+    }
+    
+    public static double findShortestPathBetweenTwoNodesOnSameFloor(StorageSquare startNode, StorageSquare endNode){
         HashMap<StorageSquare, StorageSquare> parentMap = new HashMap<>();
         HashSet<StorageSquare> visited = new HashSet<>();
         Map<StorageSquare, Double> distances = initDistances(squares);
@@ -53,12 +79,7 @@ public class AStarPathfinder {
                     if (!visited.contains(neighbor)) {
 
                         // calculate predicted distance to the end node
-                        double predictedDistance = 0.0;
-                        if(neighbor.getFloorNr() == endNode.getFloorNr()){
-                            predictedDistance = Math.abs((neighbor.getColNr() + neighbor.getRowNr())-(endNode.getColNr() + endNode.getRowNr()));
-                        } else {
-                            
-                        }
+                        double predictedDistance = Math.abs((neighbor.getColNr() + neighbor.getRowNr())-(endNode.getColNr() + endNode.getRowNr()));
 
                         // 1. calculate distance to neighbor. 2. calculate dist from start node
                         double neighborDistance = entry.getValue();
