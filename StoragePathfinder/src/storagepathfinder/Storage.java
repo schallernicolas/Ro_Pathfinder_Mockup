@@ -236,7 +236,7 @@ public class Storage {
         if(square.isPresent()){
             return square.get();
         } else {
-            throw new SquareNotPresentInStorageException();
+            throw new SquareNotPresentInStorageException(name);
         }
     }
     
@@ -248,7 +248,7 @@ public class Storage {
         if(square.isPresent()){
             return square.get();
         } else {
-            throw new SquareNotPresentInStorageException();
+            throw new SquareNotPresentInStorageException(floorNr + "11");
         }
     }
     
@@ -258,7 +258,7 @@ public class Storage {
     protected void printStorage() {
         int floorId = 0;
         for (int i = 0; i <= 2; i++) {
-            System.out.println("Storage floor " + i);
+            System.out.println("\nStorage floor " + i);
             int rowId = 0;
             while (rowId<4) {
                 List<StorageSquare> rowSquares = getRow(floorId, rowId);
@@ -295,7 +295,12 @@ public class Storage {
                     }
                     if (squareToPrint != null) {
                         if (squareToPrint.getVisitOrder() != 0) {
-                            System.out.print(String.format("%4d   |", squareToPrint.getVisitOrder()));
+                            if(squareToPrint.getTimesToVisit() == 1){
+                                System.out.print(String.format("%4d   |", squareToPrint.getVisitOrder()));
+                            } else {
+                                System.out.print(String.format("%2d %2dx |", squareToPrint.getVisitOrder(), squareToPrint.getTimesToVisit()));
+                            }
+                            
                         } else {
                             System.out.print("       |");
                         }

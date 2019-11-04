@@ -23,6 +23,7 @@ public class StorageSquare {
     //used for calculation in a* algorithm
     private double distanceToStart = 0;
     private int visitOrder = 0;
+    private int timesToVisit = 0;
     
     public StorageSquare(String name, int floorNr, int colNr, int rowNr){
         this.name = name; 
@@ -96,6 +97,16 @@ public class StorageSquare {
     public void setVisitOrder(int visitOrder) {
         this.visitOrder = visitOrder;
     }
+
+    public int getTimesToVisit() {
+        return timesToVisit;
+    }
+
+    public void incrementTimesToVisit() {
+        this.timesToVisit = ++timesToVisit;
+    }
+    
+    
     
     
 }

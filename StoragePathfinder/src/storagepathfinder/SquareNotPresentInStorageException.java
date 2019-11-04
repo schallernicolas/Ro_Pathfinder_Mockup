@@ -10,5 +10,20 @@ package storagepathfinder;
  * @author nsc
  */
 public class SquareNotPresentInStorageException extends Exception {
+    private String message;
+    
+    
+    public SquareNotPresentInStorageException(String square){
+        setSquareInformation(square);
+    }
+    
+    public void setSquareInformation(String square){
+        this.message = "Square '" + square + "' is not present in storage.";
+    }
+    
+    @Override
+    public String getMessage(){
+        return message;
+    } 
     
 }

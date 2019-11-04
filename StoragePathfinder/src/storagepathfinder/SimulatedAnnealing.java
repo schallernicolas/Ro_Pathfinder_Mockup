@@ -36,8 +36,10 @@ public class SimulatedAnnealing {
     public void simulateAnnealing(){
         // Initialize intial solution
         Tour currentSolution = new Tour(squareList.size());
-        
         currentSolution.generateIndividual(squareList);
+        //Later
+        //currentSolution.setSpediAsEndpoint(squareList.stream().filter(s -> s.getName().equals("003")).findFirst().get());
+        System.out.println("Initial tour: " + currentSolution.toString());
         System.out.println("Initial solution distance: " + currentSolution.getDistance());
         
         // Set as current best
@@ -73,8 +75,10 @@ public class SimulatedAnnealing {
             temp *= 1-coolingRate;
         }
         
+        
+        best.setVisitInformation();
+        System.out.println("Final tour: " + best);
         System.out.println("Final solution distance: " + best.getDistance());
-        System.out.println("Tour: " + best);
     }
     
     private int getRandomSwapPosition(){

@@ -8,6 +8,7 @@ package storagepathfinder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -38,11 +39,12 @@ public class Tour {
         for (int i = 1; i < squareList.size()-1; i++) {
           listToShuffle.add(squareList.get(i));
         }
-        // Randomly reorder the tour
-        Collections.shuffle(listToShuffle);
+        // Randomly reorder the tour --not for Robatech!
+        //Collections.shuffle(listToShuffle);
         listToShuffle.add(0, squareList.get(0));
         listToShuffle.add(squareList.get(squareList.size()-1));
         tour = listToShuffle;
+        //tour = squareList;
     }
     
     public void setSquare(int pos, StorageSquare square) {
@@ -68,12 +70,39 @@ public class Tour {
         return distance;
     }
     
+    public void setVisitInformation(){
+        int visitOrder = 1;
+        for (int i = 0; i < tour.size(); i++) {
+            StorageSquare square = getSquare(i);
+            if(square.getVisitOrder() >= 1){
+                square.incrementTimesToVisit();
+            } else {
+                square.setVisitOrder(visitOrder);
+                square.incrementTimesToVisit();
+                visitOrder++;
+            }
+        }
+    }
+    
+    public void setSpediAsEndpoint(StorageSquare spediSquare){
+        Optional<StorageSquare> square = tour
+                                            .stream()
+                                            .filter(s->s.getName().equals("003"))
+                                            .findFirst();
+        if(!square.isPresent()){
+            tour.add(spediSquare);
+        } else {
+            tour.remove(spediSquare);
+            tour.add(spediSquare);
+        }
+    }
+    
     @Override
     public String toString() {
         String geneString = "|";
         for (int i = 0; i < tour.size(); i++) {
-            getSquare(i).setVisitOrder(i+1);
-            geneString += getSquare(i)+"|";
+            StorageSquare square = getSquare(i);
+            geneString += square+"|";
         }
         return geneString;
     }
