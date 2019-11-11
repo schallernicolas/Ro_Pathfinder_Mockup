@@ -24,24 +24,27 @@ public class StoragePathfinder {
         List<StorageSquare> squaresToVisit = new ArrayList<>();
         if (args.length == 0) {
             try {
-                squaresToVisit.add(storage.getSquareByName("010"));
-                squaresToVisit.add(storage.getSquareByName("109"));
-                squaresToVisit.add(storage.getSquareByName("110"));
-                squaresToVisit.add(storage.getSquareByName("102"));
-                squaresToVisit.add(storage.getSquareByName("007"));
-                squaresToVisit.add(storage.getSquareByName("063"));
-                squaresToVisit.add(storage.getSquareByName("013"));
-                squaresToVisit.add(storage.getSquareByName("021"));
-                squaresToVisit.add(storage.getSquareByName("043"));
-                squaresToVisit.add(storage.getSquareByName("008"));
-                squaresToVisit.add(storage.getSquareByName("009"));
-                squaresToVisit.add(storage.getSquareByName("051"));
-                squaresToVisit.add(storage.getSquareByName("060"));
-                squaresToVisit.add(storage.getSquareByName("040"));
-                squaresToVisit.add(storage.getSquareByName("240"));
-                squaresToVisit.add(storage.getSquareByName("250"));
-                squaresToVisit.add(storage.getSquareByName("260"));
-                squaresToVisit.add(storage.getSquareByName("003"));
+                squaresToVisit.add(Storage.getSquareByName("010"));
+                squaresToVisit.add(Storage.getSquareByName("109"));
+                squaresToVisit.add(Storage.getSquareByName("110"));
+                squaresToVisit.add(Storage.getSquareByName("102"));
+                squaresToVisit.add(Storage.getSquareByName("007"));
+                squaresToVisit.add(Storage.getSquareByName("063"));
+                squaresToVisit.add(Storage.getSquareByName("013"));
+                squaresToVisit.add(Storage.getSquareByName("021"));
+                squaresToVisit.add(Storage.getSquareByName("003"));
+                squaresToVisit.add(Storage.getSquareByName("043"));
+                squaresToVisit.add(Storage.getSquareByName("008"));
+                squaresToVisit.add(Storage.getSquareByName("009"));
+                squaresToVisit.add(Storage.getSquareByName("051"));
+                squaresToVisit.add(Storage.getSquareByName("060"));
+                squaresToVisit.add(Storage.getSquareByName("040"));
+                squaresToVisit.add(Storage.getSquareByName("240"));
+                squaresToVisit.add(Storage.getSquareByName("250"));
+                squaresToVisit.add(Storage.getSquareByName("260"));
+                squaresToVisit.add(Storage.getSquareByName("003"));
+                squaresToVisit.add(Storage.getSquareByName("003"));
+                squaresToVisit.add(Storage.getSquareByName("013"));
 
             } catch (SquareNotPresentInStorageException e) {
                 System.out.println(e.getMessage());

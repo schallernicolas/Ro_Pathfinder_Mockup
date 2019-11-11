@@ -5,6 +5,7 @@
  */
 package storagepathfinder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,11 +37,18 @@ public class SimulatedAnnealing {
     public void simulateAnnealing(){
         // Initialize intial solution
         Tour currentSolution = new Tour(squareList.size());
-        currentSolution.generateIndividual(squareList);
+        //currentSolution.generateIndividual(squareList);
         //Later
-        //currentSolution.setSpediAsEndpoint(squareList.stream().filter(s -> s.getName().equals("003")).findFirst().get());
+        try{
+            currentSolution.setSpediAsEndpoint(Storage.getSquareByName("003"));
+        }catch(SquareNotPresentInStorageException e){
+            e.printStackTrace();
+            return;
+        }
+        
         System.out.println("Initial tour: " + currentSolution.toString());
         System.out.println("Initial solution distance: " + currentSolution.getDistance());
+        currentSolution.setVisitInformation();
         
         // Set as current best
         Tour best = new Tour(currentSolution.getTour());
@@ -49,8 +57,8 @@ public class SimulatedAnnealing {
             // Create new neighbour tour
             Tour newSolution = new Tour(currentSolution.getTour());
 
-            int tourPos1 = getRandomSwapPosition();
-            int tourPos2 = getRandomSwapPosition();
+            int tourPos1 = getRandomSwapPosition(newSolution.getTour());
+            int tourPos2 = getRandomSwapPosition(newSolution.getTour());
 
             StorageSquare squareToSwap1 = newSolution.getSquare(tourPos1);
             StorageSquare squareToSwap2 = newSolution.getSquare(tourPos2);
@@ -76,17 +84,16 @@ public class SimulatedAnnealing {
         }
         
         
-        best.setVisitInformation();
         System.out.println("Final tour: " + best);
         System.out.println("Final solution distance: " + best.getDistance());
     }
     
-    private int getRandomSwapPosition(){
+    private int getRandomSwapPosition(ArrayList list){
         int randomPosition = 0;
         while(true){
             double random = Math.random();
-            randomPosition = (int) (squareList.size() * random);
-            if(randomPosition > 0 && randomPosition < squareList.size()-1){
+            randomPosition = (int) (list.size() * random);
+            if(randomPosition > 0 && randomPosition < list.size()-1){
                 return randomPosition;
             }
         }

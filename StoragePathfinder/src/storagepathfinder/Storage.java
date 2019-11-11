@@ -192,14 +192,14 @@ public class Storage {
             return;
         }
         //connections from ground floor
-        elevatorSquareG0.addNeighbor(elevatorSquareG1, 30);
-        elevatorSquareG0.addNeighbor(elevatorSquareG2, 40);
+        elevatorSquareG0.addNeighbor(elevatorSquareG1, 300);
+        elevatorSquareG0.addNeighbor(elevatorSquareG2, 400);
         //connections from first floor
-        elevatorSquareG1.addNeighbor(elevatorSquareG0, 30);
-        elevatorSquareG1.addNeighbor(elevatorSquareG2, 30);
+        elevatorSquareG1.addNeighbor(elevatorSquareG0, 300);
+        elevatorSquareG1.addNeighbor(elevatorSquareG2, 300);
         //connections from second floor
-        elevatorSquareG2.addNeighbor(elevatorSquareG1, 30);
-        elevatorSquareG2.addNeighbor(elevatorSquareG0, 40);
+        elevatorSquareG2.addNeighbor(elevatorSquareG1, 300);
+        elevatorSquareG2.addNeighbor(elevatorSquareG0, 400);
             
     }
     
@@ -228,7 +228,7 @@ public class Storage {
         return storageSquares;
     }
     
-    protected StorageSquare getSquareByName(String name) throws SquareNotPresentInStorageException{
+    protected static StorageSquare getSquareByName(String name) throws SquareNotPresentInStorageException{
         Optional<StorageSquare> square = storageSquares
                                             .stream()
                                             .filter(s -> s.getName().equals(name))

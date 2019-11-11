@@ -6,7 +6,7 @@
 package storagepathfinder;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,10 +72,12 @@ public class Tour {
     
     public void setVisitInformation(){
         int visitOrder = 1;
-        for (int i = 0; i < tour.size(); i++) {
-            StorageSquare square = getSquare(i);
+        Iterator iter = tour.iterator();
+        while (iter.hasNext()) {
+            StorageSquare square = (StorageSquare)iter.next();
             if(square.getVisitOrder() >= 1){
                 square.incrementTimesToVisit();
+                iter.remove();
             } else {
                 square.setVisitOrder(visitOrder);
                 square.incrementTimesToVisit();
@@ -85,16 +87,13 @@ public class Tour {
     }
     
     public void setSpediAsEndpoint(StorageSquare spediSquare){
-        Optional<StorageSquare> square = tour
-                                            .stream()
-                                            .filter(s->s.getName().equals("003"))
-                                            .findFirst();
-        if(!square.isPresent()){
-            tour.add(spediSquare);
-        } else {
-            tour.remove(spediSquare);
-            tour.add(spediSquare);
+        Iterator iter = tour.iterator();
+        while (iter.hasNext()) {
+            if(((StorageSquare)iter.next()).getName().equals("003")){
+                iter.remove();
+            }
         }
+        tour.add(spediSquare);
     }
     
     @Override
