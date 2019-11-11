@@ -192,14 +192,14 @@ public class Storage {
             return;
         }
         //connections from ground floor
-        elevatorSquareG0.addNeighbor(elevatorSquareG1, 20);
-        elevatorSquareG0.addNeighbor(elevatorSquareG2, 30);
+        elevatorSquareG0.addNeighbor(elevatorSquareG1, 30);
+        elevatorSquareG0.addNeighbor(elevatorSquareG2, 40);
         //connections from first floor
-        elevatorSquareG1.addNeighbor(elevatorSquareG0, 20);
-        elevatorSquareG1.addNeighbor(elevatorSquareG2, 20);
+        elevatorSquareG1.addNeighbor(elevatorSquareG0, 30);
+        elevatorSquareG1.addNeighbor(elevatorSquareG2, 30);
         //connections from second floor
-        elevatorSquareG2.addNeighbor(elevatorSquareG1, 20);
-        elevatorSquareG2.addNeighbor(elevatorSquareG0, 30);
+        elevatorSquareG2.addNeighbor(elevatorSquareG1, 30);
+        elevatorSquareG2.addNeighbor(elevatorSquareG0, 40);
             
     }
     
