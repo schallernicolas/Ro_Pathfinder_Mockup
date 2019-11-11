@@ -30,7 +30,7 @@ public class Tour {
         this.tour = (ArrayList) tour.clone();
     }
     
-    public ArrayList getTour(){
+    public ArrayList<StorageSquare> getTour(){
         return tour;
     }
     
@@ -39,12 +39,9 @@ public class Tour {
         for (int i = 1; i < squareList.size()-1; i++) {
           listToShuffle.add(squareList.get(i));
         }
-        // Randomly reorder the tour --not for Robatech!
-        //Collections.shuffle(listToShuffle);
         listToShuffle.add(0, squareList.get(0));
         listToShuffle.add(squareList.get(squareList.size()-1));
         tour = listToShuffle;
-        //tour = squareList;
     }
     
     public void setSquare(int pos, StorageSquare square) {
@@ -60,7 +57,6 @@ public class Tour {
     // Gets the total distance of the tour
     public double getDistance(){
         if (distance == 0) {
-            int tourDistance = 0;
             for (int i=0; i < tour.size(); i++) {
                 if(i+1 < tour.size()){
                     distance += AStarPathfinder.findShortestPathBetweenTwoNodesOnSameFloor(tour.get(i), tour.get(i+1));
@@ -86,14 +82,16 @@ public class Tour {
         }
     }
     
-    public void setSpediAsEndpoint(StorageSquare spediSquare){
+    public void setStartAndEndpoint(StorageSquare startSquare, StorageSquare endSquare){
         Iterator iter = tour.iterator();
         while (iter.hasNext()) {
-            if(((StorageSquare)iter.next()).getName().equals("003")){
+            StorageSquare square = (StorageSquare)iter.next();
+            if(square.getName().equals(endSquare.getName()) || square.getName().equals(startSquare.getName())){
                 iter.remove();
             }
         }
-        tour.add(spediSquare);
+        tour.add(0, startSquare);
+        tour.add(endSquare);
     }
     
     @Override

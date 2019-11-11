@@ -5,6 +5,7 @@
  */
 package storagepathfinder;
 
+import com.sun.org.apache.xpath.internal.operations.Equals;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -88,6 +89,18 @@ public class StorageSquare {
     @Override
     public String toString() {
         return name;
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        StorageSquare square = (StorageSquare) obj;
+        return this.getName().equals(square.getName());
     }
 
     public int getVisitOrder() {

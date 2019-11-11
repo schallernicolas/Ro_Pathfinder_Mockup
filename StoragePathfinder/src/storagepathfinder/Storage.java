@@ -27,7 +27,8 @@ public class Storage {
         generateStorageSquares();
         generateObstacles();
         storageSquares.forEach((n) -> populateNeigbors(n));
-        generateElevatorConnections();
+     
+        //generateElevatorConnections();
         //storageSquares.forEach((n) -> n.printSquareInformation());
         
     }

@@ -14,15 +14,11 @@ import java.util.List;
  */
 public class SimulatedAnnealing {
     
-    private List<StorageSquare> squareList;
     // Set initial temp
     double temp = 10000;
-
-    // Cooling rate
     double coolingRate = 0.003;
     
-    public SimulatedAnnealing(List<StorageSquare> squareList){
-        this.squareList = squareList;
+    public SimulatedAnnealing(){
     }
     
     public static double acceptanceProbability(double energy, double newEnergy, double temperature) {
@@ -34,21 +30,7 @@ public class SimulatedAnnealing {
         return Math.exp((energy - newEnergy) / temperature);
     }
     
-    public void simulateAnnealing(){
-        // Initialize intial solution
-        Tour currentSolution = new Tour(squareList.size());
-        //currentSolution.generateIndividual(squareList);
-        //Later
-        try{
-            currentSolution.setSpediAsEndpoint(Storage.getSquareByName("003"));
-        }catch(SquareNotPresentInStorageException e){
-            e.printStackTrace();
-            return;
-        }
-        
-        System.out.println("Initial tour: " + currentSolution.toString());
-        System.out.println("Initial solution distance: " + currentSolution.getDistance());
-        currentSolution.setVisitInformation();
+    public Tour simulateAnnealing(Tour currentSolution){
         
         // Set as current best
         Tour best = new Tour(currentSolution.getTour());
@@ -82,10 +64,8 @@ public class SimulatedAnnealing {
             // Cool system
             temp *= 1-coolingRate;
         }
-        
-        
-        System.out.println("Final tour: " + best);
-        System.out.println("Final solution distance: " + best.getDistance());
+        best.setVisitInformation();
+        return best;
     }
     
     private int getRandomSwapPosition(ArrayList list){
